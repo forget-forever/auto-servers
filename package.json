@@ -28,9 +28,11 @@
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.178",
     "@types/request": "^2.48.8",
     "commander": "^8.3.0",
     "inquirer": "^8.2.0",
+    "lodash": "^4.17.21",
     "node-cmd": "^4.0.0",
     "path": "^0.12.7",
     "request": "^2.88.2",
