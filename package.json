@@ -28,10 +28,13 @@
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
+    "@types/request": "^2.48.8",
     "commander": "^8.3.0",
     "inquirer": "^8.2.0",
     "node-cmd": "^4.0.0",
     "path": "^0.12.7",
+    "request": "^2.88.2",
+    "typeof-jsonc": "^1.1.10",
     "typescript": "^4.5.4"
   }
 }
