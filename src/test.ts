@@ -12,7 +12,7 @@ const init = async () => {
     choices: files
   })
   const test = require(`./test/${ans.res}`)
-  test()
+  console.log(test())
 }
 
 init()

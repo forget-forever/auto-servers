@@ -7,10 +7,11 @@ export const translate = async (query: string[]) => {
     url: config.translateUrl,
     method: 'POST',
     formData: {
-      q: query,
+      q: query.join(" -& "),
       from: 'Auto',
       to: 'Auto'
     }
   })
-  return query.reduce((pre, cur, index) => ({...pre, [cur]: res.translation[index]}), {} as Record<string, string>)
+  const enArr = res.translation[0] && res.translation[0].trim().split("-&")
+  return query.reduce((pre, cur, index) => ({...pre, [cur]: enArr[index] || cur}), {} as Record<string, string>)
 }

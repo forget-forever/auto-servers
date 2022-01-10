@@ -1,6 +1,8 @@
 {
   // yapi的mock地址
   "mockUrl": "",
+  // 项目token
+  "token": "",
   // 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类
   "collections": {
     "test": []
