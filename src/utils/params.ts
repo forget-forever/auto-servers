@@ -12,8 +12,6 @@
  * 写入参数
  * @param data 
  */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
 export const setParams = (data: typeof commandParam) => {
   Object.keys(data).forEach((k) => {
     commandParam[k] = data[k]
