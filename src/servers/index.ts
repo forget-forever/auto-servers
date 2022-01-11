@@ -2,7 +2,7 @@ import { getNetMsg } from "../utils/request"
 import config from "../config"
 import type { TranslateRes } from "./type"
 import { CoreOptions } from "request"
-import { getConfig } from "../utils"
+import { getConfig } from "../utils/config"
 
 
 export const translate = async (query: string[]) => {

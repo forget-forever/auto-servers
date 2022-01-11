@@ -37,3 +37,4 @@ export const getConfig = <K extends keyof typeof asc>(key: K): (typeof asc)[K] =
   console.log(chalk.red(`❌ 缺少必填配置项：${key}`))
   process.exit()
 }
+
