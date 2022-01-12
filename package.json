@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "ts-node --transpile-only src/test.ts",
-    "dev:comment": "启动开发环境",
+    "dev:comment": "启动开发环境, 建议直接使用ts-node运行。",
     "dev": "ts-node --transpile-only src/index.ts",
     "build:comment": "构建",
     "build": "rm -rf lib && tsc --build",

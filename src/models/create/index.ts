@@ -46,6 +46,9 @@ const listHandle = (apiList: ApiListItem[]) => {
   }
 }
 
+/**
+ * 主流程，开始创建serve
+ */
 const create = async () => {
   const apiList = await getApis()
   const fetchList = listHandle(apiList)

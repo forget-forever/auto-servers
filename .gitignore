@@ -3,6 +3,7 @@
 # dependencies
 **/node_modules
 # roadhog-api-doc ignore
+/src/tmp
 /src/utils/request-temp.js
 _roadhog-api-doc
 
