@@ -1,3 +1,5 @@
+import config from "../config"
+
 /**
  * 命令行启动参数
  */
@@ -5,7 +7,7 @@
   /** -t 参数，在没有的时候会使用获取全部的接口，有的时候先判定是否是接口的集合，不是的话那就当作url获取抓取接口数据 */
   type: '',
   /** -c 参数，没有的时候使用当前目录所获取到的唯一一个.config.js，否则出选框选择 */
-  configFile: 'as.config.json',
+  configFile: config.defalutConfigName,
   /** -d 参数，debug模式, 空字符串代表不开启 */
   debug: '',
 }

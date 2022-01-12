@@ -1,8 +1,8 @@
-import { getDefaultConfig } from "../utils/config";
+import { getConfig } from "../utils/config";
 
 const init = () => {
 
-  return getDefaultConfig()
+  return getConfig('mockUrl')
 }
 
 module.exports = init

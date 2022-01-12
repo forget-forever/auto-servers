@@ -1,7 +1,7 @@
-import { readFileSync } from "fs";
+// import { readFileSync } from "fs";
 import { resolve } from "path";
-import type asc from '../tpl/as.config.json'
-import stripJsonComments from "strip-json-comments";
+import type asc from '../tpl/asconfig'
+// import stripJsonComments from "strip-json-comments";
 import config from "../config";
 import chalk from "chalk";
 import { getParams } from "./params";
@@ -17,8 +17,9 @@ export const getDefaultConfig = () => {
   if (defaultConfig) {
     return defaultConfig
   }
-  const file = readFileSync(resolve(__dirname, '../tpl/as.config.json'), "utf-8")
-  defaultConfig = JSON.parse(stripJsonComments(file)) as typeof asc
+  // const file = readFileSync(resolve(__dirname, '../tpl/asconfig.js'), "utf-8")
+  // defaultConfig = JSON.parse(stripJsonComments(file)) as typeof asc
+  defaultConfig = require('../tpl/asconfig') as typeof asc
   return defaultConfig
 };
 
@@ -29,8 +30,9 @@ export const getUserConfig = () => {
     if (userConfig) {
       return userConfig
     }
-    const file = readFileSync(resolve(process.cwd(), params.configFile), 'utf-8')
-    userConfig = JSON.parse(stripJsonComments(file)) as typeof asc
+    // const file = readFileSync(resolve(process.cwd(), params.configFile), 'utf-8')
+    // userConfig = JSON.parse(stripJsonComments(file)) as typeof asc
+    userConfig = require(resolve(process.cwd(), params.configFile)) as typeof asc
     return userConfig
   } catch (error) {
     console.log(`读取配置文件失败，请检查是否存在文件：${chalk.yellow(resolve(process.cwd(), params.configFile))}`)

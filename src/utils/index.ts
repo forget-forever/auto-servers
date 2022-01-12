@@ -19,6 +19,13 @@ export const info = (msg: Parameters<typeof console.info>[0], type: 'debug' | 'a
 }
 
 /**
+ * 打印分割线
+ */
+export const infoSplitLine = () => {
+  info('------------------------------------')
+}
+
+/**
  * 生成带query参数的url
  * @param url 
  * @param data 

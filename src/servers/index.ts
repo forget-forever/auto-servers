@@ -28,7 +28,7 @@ export const translate = async (query: string[]) => {
 type IResModel<D> = { errcode: number, errmsg: string, data: D}
 
 export const getYpiMsg = async <RES>(url: `/${string}`, option: CoreOptions = {}) => {
-  info('获取yapi：url的数据', 'debug')
+  info(`获取yapi：${url}的数据`, 'debug')
   const {formData, ...resetOptions} = option
   const {res} = await getNetMsg<IResModel<RES>>({
     url: `${getConfig('mockUrl')}${url}`,
