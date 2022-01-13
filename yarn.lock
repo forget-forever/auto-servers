@@ -57,6 +57,13 @@
   resolved "http://npm.sfjswl.com/@types%2fcaseless/-/caseless-0.12.2.tgz"
   integrity sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
 
+"@types/cli-spinner@^0.2.1":
+  version "0.2.1"
+  resolved "http://npm.sfjswl.com/@types%2fcli-spinner/-/cli-spinner-0.2.1.tgz#d41515446773b40693ad5dd23ed74ea897a58278"
+  integrity sha512-bsdlZy3LThi9QbsK0GXm5s/e3F6HAJi1tMsIanm9trtoStSlV3gzir9JpfOK40gERMNIVevDTpG5NzSGnYs3QA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/inquirer@^8.1.3":
   version "8.1.3"
   resolved "http://npm.sfjswl.com/@types%2finquirer/-/inquirer-8.1.3.tgz"
@@ -72,29 +79,34 @@
 
 "@types/lodash.flatmap@^4.5.6":
   version "4.5.6"
-  resolved "http://npm.sfjswl.com/@types%2flodash.flatmap/-/lodash.flatmap-4.5.6.tgz#5f1ea80cebe403f0fbfcc1b5ad75cd09dd8b5785"
+  resolved "http://npm.sfjswl.com/@types%2flodash.flatmap/-/lodash.flatmap-4.5.6.tgz"
   integrity sha512-ELNrUL9q+MB7AACaHivWIsKDFDgYhHE3/svXhqvDJgONtn2c467Cy87nEb7CEDvfaGCPv91lPaW596I8s5oiNQ==
   dependencies:
     "@types/lodash" "*"
 
 "@types/lodash.uniq@^4.5.6":
   version "4.5.6"
-  resolved "http://npm.sfjswl.com/@types%2flodash.uniq/-/lodash.uniq-4.5.6.tgz#adb052f6c7eeb38b920c13166e7a972dd960b4c5"
+  resolved "http://npm.sfjswl.com/@types%2flodash.uniq/-/lodash.uniq-4.5.6.tgz"
   integrity sha512-XHNMXBtiwsWZstZMyxOYjr0e8YYWv0RgPlzIHblTuwBBiWo2MzWVaTBihtBpslb5BglgAWIeBv69qt1+RTRW1A==
   dependencies:
     "@types/lodash" "*"
 
 "@types/lodash.uniqby@^4.7.6":
   version "4.7.6"
-  resolved "http://npm.sfjswl.com/@types%2flodash.uniqby/-/lodash.uniqby-4.7.6.tgz#672827a701403f07904fe37f0721ae92abfa80e8"
+  resolved "http://npm.sfjswl.com/@types%2flodash.uniqby/-/lodash.uniqby-4.7.6.tgz"
   integrity sha512-9wBhrm1y6asW50Joj6tsySCNUgzK2tCqL7vtKIej0E9RyeBFdcte7fxUosmFuMoOU0eHqOMK76kCCrK99jxHgg==
   dependencies:
     "@types/lodash" "*"
 
 "@types/lodash@*":
   version "4.14.178"
-  resolved "http://npm.sfjswl.com/@types%2flodash/-/lodash-4.14.178.tgz#341f6d2247db528d4a13ddbb374bcdc80406f4f8"
+  resolved "http://npm.sfjswl.com/@types%2flodash/-/lodash-4.14.178.tgz"
   integrity sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==
+
+"@types/node-emoji@^1.8.1":
+  version "1.8.1"
+  resolved "http://npm.sfjswl.com/@types%2fnode-emoji/-/node-emoji-1.8.1.tgz#689cb74fdf6e84309bcafce93a135dfecd01de3f"
+  integrity sha512-0fRfA90FWm6KJfw6P9QGyo0HDTCmthZ7cWaBQndITlaWLTZ6njRyKwrwpzpg+n6kBXBIGKeUHEQuBx7bphGJkA==
 
 "@types/node@*":
   version "17.0.8"
@@ -437,6 +449,11 @@ cli-cursor@^3.1.0:
   integrity sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==
   dependencies:
     restore-cursor "^3.1.0"
+
+cli-spinner@^0.2.10:
+  version "0.2.10"
+  resolved "http://npm.sfjswl.com/cli-spinner/-/cli-spinner-0.2.10.tgz#f7d617a36f5c47a7bc6353c697fc9338ff782a47"
+  integrity sha512-U0sSQ+JJvSLi1pAYuJykwiA8Dsr15uHEy85iCJ6A+0DjVxivr3d+N2Wjvodeg89uP5K6TswFkKBfAD7B3YSn/Q==
 
 cli-spinners@^2.5.0:
   version "2.6.1"
@@ -816,7 +833,7 @@ flat-cache@^3.0.4:
 
 flatmap@0.0.3:
   version "0.0.3"
-  resolved "http://npm.sfjswl.com/flatmap/-/flatmap-0.0.3.tgz#1f18a4d938152d495965f9c958d923ab2dd669b4"
+  resolved "http://npm.sfjswl.com/flatmap/-/flatmap-0.0.3.tgz"
   integrity sha1-Hxik2TgVLUlZZfnJWNkjqy3WabQ=
 
 flatted@^3.1.0:
@@ -1166,7 +1183,7 @@ levn@^0.4.1:
 
 lodash.flatmap@^4.5.0:
   version "4.5.0"
-  resolved "http://npm.sfjswl.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
+  resolved "http://npm.sfjswl.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz"
   integrity sha1-74y/QI9uSCaGYzRTBcaswLd4cC4=
 
 lodash.merge@^4.6.2:
@@ -1176,12 +1193,12 @@ lodash.merge@^4.6.2:
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
-  resolved "http://npm.sfjswl.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
+  resolved "http://npm.sfjswl.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
 lodash.uniqby@^4.7.0:
   version "4.7.0"
-  resolved "http://npm.sfjswl.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#d99c07a669e9e6d24e1362dfe266c67616af1302"
+  resolved "http://npm.sfjswl.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz"
   integrity sha1-2ZwHpmnp5tJOE2Lf4mbGdhavEwI=
 
 lodash@^4.17.21:
@@ -1294,6 +1311,13 @@ node-cmd@^4.0.0:
   version "4.0.0"
   resolved "http://npm.sfjswl.com/node-cmd/-/node-cmd-4.0.0.tgz"
   integrity sha512-3OHy8KI8MuwADyugQRZBsaqe3c0r3yxQSoLsDBVk7vAjPmfG01512MPBQjfmBJxrH+2qURbiBf/ZyoimrhdA6A==
+
+node-emoji@^1.11.0:
+  version "1.11.0"
+  resolved "http://npm.sfjswl.com/node-emoji/-/node-emoji-1.11.0.tgz#69a0150e6946e2f115e9d7ea4df7971e2628301c"
+  integrity sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==
+  dependencies:
+    lodash "^4.17.21"
 
 normalize-path@^3.0.0, normalize-path@~3.0.0:
   version "3.0.0"
@@ -1603,7 +1627,7 @@ signal-exit@^3.0.2:
 
 similar-substring@^1.0.4:
   version "1.0.4"
-  resolved "http://npm.sfjswl.com/similar-substring/-/similar-substring-1.0.4.tgz#4e26c303b4aba821f9e7fe05c40c1b070b1735ad"
+  resolved "http://npm.sfjswl.com/similar-substring/-/similar-substring-1.0.4.tgz"
   integrity sha512-coF1B3R9rhN78LVhdbzK/smT+JG7tPHiyGsUwNmXJA1fWsuQOr/rokc3JhpVq0Lg3waIrYemPron2P0zSNFbLQ==
   dependencies:
     "@types/lodash.flatmap" "^4.5.6"

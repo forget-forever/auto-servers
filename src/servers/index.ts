@@ -4,6 +4,8 @@ import type { TranslateRes } from "./type"
 import { CoreOptions } from "request"
 import { getConfig } from "../utils/config"
 import { info } from "../utils"
+import chalk from "chalk"
+import { emoji } from "node-emoji"
 
 
 export const translate = async (query: string[]) => {
@@ -20,6 +22,7 @@ export const translate = async (query: string[]) => {
     })
     enArr = (res.translation[0] && res.translation[0].trim().split("-&")) || query
   } catch (error) {
+    info(chalk.bold.red(`${emoji.watch}有道翻译api异常，请及时检修`))
     enArr = query
   }
   return query.reduce((pre, cur, index) => ({...pre, [cur]: enArr[index] || cur}), {} as Record<string, string>)

@@ -4,9 +4,11 @@ import { ApiListItem, OneListItem } from "./type"
 import config from "../../config"
 import { getConfig } from "../../utils/config"
 import inquirer from "inquirer"
-import { info, infoSplitLine } from "../../utils"
+import { info } from "../../utils"
 import chalk from "chalk"
 import catchApi from "./catchApi"
+import ProgressLogs from "../../utils/ProgressLogs"
+import { emoji } from "node-emoji"
 
 /** 从yapi远程获取接口列表 */
 const getApis = async () => {
@@ -47,36 +49,45 @@ const listHandle = (apiList: ApiListItem[]) => {
 }
 
 /**
+ * 开始生成任务队列
+ * @param apis 任务的数组
+ */
+const createTasks = async (apis: OneListItem[]) => {
+  const progressLog = new ProgressLogs({
+    title: 'ok！现在开始生成方法',
+    record: true,
+    loadingEffect: apis.length
+  })
+  apis.forEach((item) => {
+    progressLog.add('生成方法:', item.path, {color: 'green'})
+  })
+  progressLog.start()
+  for(let i = 0; i < apis.length; i++) {
+    await catchApi(apis[i])
+    progressLog.next('success')
+  }
+}
+
+/**
  * 主流程，开始创建serve
  */
 const create = async () => {
   const apiList = await getApis()
   const fetchList = listHandle(apiList)
   if (!fetchList.length) {
-    info(chalk.bold.yellow('>> 没有想关的接口，程序终止！'))
+    info(chalk.bold.yellow('>> 没有相关的接口，程序终止！'))
     process.exit()
   }
-  info(`>> ⚠️获取以下 ${chalk.bold.red(`${fetchList.length}个`)} 接口的数据 👇`)
   info(fetchList.map((item) => item.path))
-  try {
-    const answer = await inquirer.prompt({
-      type: 'confirm',
-      message: '是否开始获取',
-      name: 'continue',
-    })
-    if (answer.continue) {
-      info('✅确定获取，开始抓取接口，请耐心等待。。。。。')
-      infoSplitLine()
-      fetchList.forEach(async (item) => {
-        await catchApi(item)
-      })
-    } else {
-      info(chalk.bold.green('>> 🤔取消获取servers，程序终止运行！'))
-      process.exit()
-    }
-  } catch (error) {
-    info(chalk.bold.red('>> 程序意外终止'))
-    info(error)
+  const answer = await inquirer.prompt({
+    type: 'confirm',
+    message: `>> ${chalk.bold.yellow(emoji.warning)}是否生成以上 ${chalk.bold.red(`${fetchList.length}个`)} serve方法👆`,
+    name: 'continue',
+  })
+  if (answer.continue) {
+    createTasks(fetchList)
+  } else {
+    info(chalk.bold.red('>> 🤔取消获取servers方法，程序终止运行！'))
     process.exit()
   }
 }

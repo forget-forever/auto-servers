@@ -15,7 +15,7 @@ module.exports = {
   /** 引入的model */
   importModel: ["import request from '@/utils/request'"],
   // 生成的方法模版，默认是：(${params}) => request<${ReturnType}>(${url}, ${option})
-  serveiceTemplate: "(${params}) => request<${ReturnType}>(${url}, ${option})",
+  serveiceTemplate: (params, ReturnType, option, url) => `(${params}) => abc<${ReturnType}>(${url}, ${option})`,
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 生成的文件的拓展名，分为.js 和 .ts
