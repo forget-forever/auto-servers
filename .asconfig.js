@@ -16,5 +16,7 @@ module.exports = {
   // 生成的方法模版，默认是：(${params}) => request<${ReturnType}>(${url}, ${option})
   serveiceTemplate: "(${params}) => request<${ReturnType}>(${url}, ${option})",
   // 返回的参数解析类型的节点，默认是data节点开始解析
-  typeRootNode: "data"
+  typeRootNode: "data",
+  /** 默认的接口分类 */
+  defaultApisType: 'utils'
 }

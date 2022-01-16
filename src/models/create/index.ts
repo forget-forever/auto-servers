@@ -1,6 +1,6 @@
 import { getParams } from "../../utils/params"
-import { getYpiMsg } from "../../servers"
-import { ApiListItem, OneListItem } from "./type"
+import { getYpiMsg, translate } from "../../servers"
+import { ApiListItem, OneListItem } from "./listType"
 import config from "../../config"
 import { getConfig } from "../../utils/config"
 import inquirer from "inquirer"
@@ -9,6 +9,7 @@ import chalk from "chalk"
 import catchApi from "./catchApi"
 import ProgressLogs from "../../utils/ProgressLogs"
 import { emoji } from "node-emoji"
+import { camelCase } from "lodash"
 
 /** 从yapi远程获取接口列表 */
 const getApis = async () => {
@@ -17,12 +18,34 @@ const getApis = async () => {
 }
 
 /**
+ * 将带了分类的两层的目录整合成一层的
+ * @param apiList 
+ * @returns 打平之后的数组
+ */
+const typeApiPreHandle = async (apiList: ApiListItem[]) => {
+  // 获取翻译
+  const typeEn = await translate(apiList.map((item) => item.name.replace(/分类|分组/g, '') || getConfig('defaultApisType')))
+  // 将翻译驼峰化，之后要做目录名
+  const pathEn = Object.keys(typeEn).reduce((pre, cur) => ({...pre, [cur]: camelCase(typeEn[cur])}), {} as Record<string, string>)
+  // 打平数组
+  const shallowList = apiList.reduce((pre, cur) => 
+    pre.concat(cur.list.map((item) => ({
+      ...item,
+      type: cur.name,
+      typeDesc: cur.desc || '',
+      pathType: pathEn[cur.name]
+    }))),[] as OneListItem[]
+  );
+  return shallowList;
+}
+
+/**
  * 整合接口列表这次要获取那些接口的数据
  * @param apiList 接口的列表
  * @returns 接口分类打平之后的数据
  */
-const listHandle = (apiList: ApiListItem[]) => {
-  const shallowList = apiList.reduce((pre, cur) => pre.concat(cur.list), [] as OneListItem[]);
+const listHandle = async (apiList: ApiListItem[]) => {
+  const shallowList = await typeApiPreHandle(apiList)
   const params = getParams()
   if (!params.type) {
     // 没有-t的参数，直接获取全部接口
@@ -39,12 +62,9 @@ const listHandle = (apiList: ApiListItem[]) => {
     }
     // 获取制定分类的接口
     const { similarSubstring } = require('similar-substring');
-    return apiList.reduce((pre, cur) => {
-      if (+similarSubstring(cur.name || '', params.type || '').similarity > +config.similarThreshold) {
-        return pre.concat(cur.list)
-      }
-      return pre
-    },  [] as OneListItem[])
+    return shallowList.filter((item) => 
+      (+similarSubstring(item.type || '', params.type || '').similarity > +config.similarThreshold)
+    )
   }
 }
 
@@ -73,7 +93,7 @@ const createTasks = async (apis: OneListItem[]) => {
  */
 const create = async () => {
   const apiList = await getApis()
-  const fetchList = listHandle(apiList)
+  const fetchList = await listHandle(apiList)
   if (!fetchList.length) {
     info(chalk.bold.yellow('>> 没有相关的接口，程序终止！'))
     process.exit()

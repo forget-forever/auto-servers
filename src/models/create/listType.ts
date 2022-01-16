@@ -1,3 +1,4 @@
+// 接口列表，按分类来的
 export interface ApiListItem {
 	index: number;
 	_id: number;
@@ -8,10 +9,11 @@ export interface ApiListItem {
 	add_time: number;
 	up_time: number;
 	__v: number;
-	list: OneListItem[];
+	list: ApiList[];
 }
 
-export interface OneListItem {
+// 接口列表去除分类后打平的
+export interface ApiList {
 	edit_uid: number;
 	status: string;
 	index: number;
@@ -25,4 +27,10 @@ export interface OneListItem {
 	uid: number;
 	add_time: number;
 	up_time: number;
+}
+
+export interface OneListItem extends ApiList {
+	type: string;
+	typeDesc: string;
+	pathType: string
 }

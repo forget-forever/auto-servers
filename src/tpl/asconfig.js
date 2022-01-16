@@ -23,5 +23,7 @@ module.exports = {
   // 是否需要生成ts类型
   tsType: true,
   // 类型的导出形式，分为declare 和 export两种
-  exportType: "declare"
+  exportType: "declare",
+  /** 默认的接口分类 */
+  defaultApisType: 'utils'
 }
