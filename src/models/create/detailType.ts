@@ -8,7 +8,7 @@ export type HeaderItem = {
 
 
 export interface ItemBody {
-	type: 'string' | 'object' | 'array';
+	type: 'string' | 'object' | 'array' | 'number' | 'boolean';
 	title: string;
 	description?: string;
 	properties?: Record<string, ItemBody>;
@@ -21,6 +21,7 @@ export interface ItemBody {
 	enumDesc?: string;
 	minimum?: number;
 	maximum?: number;
+	uniqueItems: boolean
 }
 
 // export type ReqType = {
@@ -29,7 +30,7 @@ export interface ItemBody {
 // 	description: string;
 // }
 
-export interface ApiDetail {
+export interface ApiDetail<T extends 'obj' | 'str'> {
 	query_path: Query_path;
 	edit_uid: number;
 	status: string;
@@ -52,12 +53,12 @@ export interface ApiDetail {
 	up_time: number;
 	req_query: Req_query[];
 	req_headers: HeaderItem[];
-	req_body_other: ItemBody | string;
+	req_body_other: T extends 'obj' ? ItemBody : string;
 	req_body_form: [];
 	__v: number;
 	desc: string;
 	markdown: string;
-	res_body: string | ItemBody;
+	res_body: T extends 'obj' ? ItemBody : string;
 	username: string;
 }
 
