@@ -10,6 +10,7 @@ import catchApi from "./catchApi"
 import ProgressLogs from "../../utils/ProgressLogs"
 import { emoji } from "node-emoji"
 import { camelCase } from "lodash"
+import { objMap } from "../../utils/util"
 
 /** 从yapi远程获取接口列表 */
 const getApis = async () => {
@@ -26,7 +27,7 @@ const typeApiPreHandle = async (apiList: ApiListItem[]) => {
   // 获取翻译
   const typeEn = await translate(apiList.map((item) => item.name.replace(/分类|分组/g, '') || getConfig('defaultApisType')))
   // 将翻译驼峰化，之后要做目录名
-  const pathEn = Object.keys(typeEn).reduce((pre, cur) => ({...pre, [cur]: camelCase(typeEn[cur])}), {} as Record<string, string>)
+  const pathEn = objMap(typeEn, (k, v) => ({[k]: camelCase(v)}))
   // 打平数组
   const shallowList = apiList.reduce((pre, cur) => 
     pre.concat(cur.list.map((item) => ({
@@ -50,7 +51,7 @@ const listHandle = async (apiList: ApiListItem[]) => {
   if (!params.type) {
     // 没有-t的参数，直接获取全部接口
     return shallowList;
-  } else if ((Object.keys(getConfig('collections')) as string[]).includes(params.type)) {
+  } else if (getConfig('collections')[params.type]) {
     // 获取配置文件中的集合的接口
     const collections = getConfig('collections')[params.type] as string[]
     return shallowList.filter((item) => collections.every((e) => item.tag.includes(e)))

@@ -1,3 +1,8 @@
+/*
+ * @Author: zml
+ * @Date: 2022-01-12 13:31:05
+ * @LastEditTime: 2022-01-27 14:57:15
+ */
 // 接口列表，按分类来的
 export interface ApiListItem {
 	index: number;
@@ -30,7 +35,10 @@ export interface ApiList {
 }
 
 export interface OneListItem extends ApiList {
+	/** 接口分类 */
 	type: string;
+	/** 分类描述 */
 	typeDesc: string;
+	/** 接口类型，翻译成了英文再驼峰化之后的 */
 	pathType: string
 }

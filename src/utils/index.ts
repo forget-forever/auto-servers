@@ -1,3 +1,9 @@
+/*
+ * @Author: zml
+ * @Date: 2022-01-12 13:05:20
+ * @LastEditTime: 2022-01-28 17:46:29
+ */
+import { compile } from "json-schema-to-typescript";
 import { getParams } from "./params";
 
 /**
@@ -43,4 +49,18 @@ export const httpBuilderUrl = (url: string, data: Record<string, string>) => {
     url += ((url.indexOf("=") != -1) ? "&" : "") + k + "=" + encodeURI(data[k]);
   }
   return url;
+}
+
+/**
+ * 编译类型的自己封装的方法，去除了 [k: string]: unknown;额外添加的类型
+ * @param args compile的参数
+ * @returns 
+ */
+export const compileType: typeof compile = async (...args) => {
+  try {
+    const typeRes = await compile(...args)
+    return typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '')
+  } catch (error) {
+    return Promise.reject(error)
+  }
 }
