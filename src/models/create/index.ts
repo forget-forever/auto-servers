@@ -14,7 +14,7 @@ import { objMap } from "../../utils/util"
 
 /** 从yapi远程获取接口列表 */
 const getApis = async () => {
-  const res = await getYpiMsg<ApiListItem[]>('/api/interface/list_menu')
+  const res = await getYpiMsg<ApiListItem[]>(config.interfaceListUrl)
   return res.data
 }
 

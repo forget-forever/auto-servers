@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-01-28 13:33:35
+ * @LastEditTime: 2022-01-29 14:34:23
  */
 module.exports = {
   // 项目id
@@ -26,10 +26,23 @@ module.exports = {
    * @param {*} dataType 请求体的参数类型
    * @param {*} ReturnType 返回的结果类型
    * @param {*} method 请求方式
+   * @param {*} apiDetail 接口的详情
    * @returns 
    */
-  serveiceTemplate: (url, paramsType, dataType, ReturnType, method) => `(params: ${paramsType} = {}, data: ${dataType} = {}) => 
-    request<${ReturnType}>(${url}, {params, method: ${method}, data})`,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serveiceTemplate: (url, paramsType, dataType, ReturnType, method, apiDetail) => {
+    let params = ''
+    if (paramsType) {
+      params += `params: ${paramsType}, `
+    }
+    if (dataType) {
+      params += `data: ${dataType}`
+    }
+    return (
+      `(${params}) => 
+        request<${ReturnType}>(${url}, {params, method: ${method}, data})`
+    ) 
+  },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 生成的文件的拓展名，分为.js 和 .ts

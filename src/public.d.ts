@@ -5,9 +5,7 @@ declare type MyOmit<T, K extends keyof T> = Omit<T, K>;
 
 
 declare interface ObjectConstructor {
-  // eslint-disable-next-line @typescript-eslint/method-signature-style
   entries<T>(o: T): [keyof T, T[keyof T]][];
-  // eslint-disable-next-line @typescript-eslint/method-signature-style
   keys<T extends object>(o: T): (keyof T)[];
 }
 

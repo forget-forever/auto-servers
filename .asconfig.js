@@ -13,8 +13,30 @@ module.exports = {
   outPath: "",
   /** 引入的model */
   importModel: ["import request from '@/utils/request'"],
-  // 生成的方法模版，默认是：(paramsType, ReturnType, option, url) => `(params: ${paramsType}) => request<${ReturnType}>(${url}, ${option})`
-  serveiceTemplate: (paramsType, ReturnType, option, url) => `(params: ${paramsType}) => request<${ReturnType}>(${url}, ${option})`,
+  /**
+   * 生成的方法模版，默认是：(paramsType, ReturnType, option, url) => `(params: ${paramsType}) => request<${ReturnType}>(${url}, ${option})`
+   * @param {*} url 接口的url
+   * @param {*} paramsType query请求参数类型
+   * @param {*} dataType 请求体的参数类型
+   * @param {*} ReturnType 返回的结果类型
+   * @param {*} method 请求方式
+   * @param {*} apiDetail 接口的详情
+   * @returns 
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  serveiceTemplate: (url, paramsType, dataType, ReturnType, method, apiDetail) => {
+    let params = ''
+    if (paramsType) {
+      params += `params: ${paramsType}, `
+    }
+    if (dataType) {
+      params += `data: ${dataType}`
+    }
+    return (
+      `(${params}) => 
+        request<${ReturnType}>(${url}, {params, method: ${method}, data})`
+    ) 
+  },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   /** 默认的接口分类 */
