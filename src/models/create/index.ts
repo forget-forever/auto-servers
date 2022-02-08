@@ -1,79 +1,23 @@
-import { getParams } from "@/utils/params"
-import { getYpiMsg, translate } from "@/servers"
-import { ApiListItem, OneListItem } from "./listType"
-import config from "@/config"
-import { getConfig } from "@/utils/config"
+/*
+ * @Author: zml
+ * @Date: 2022-01-10 20:32:24
+ * @LastEditTime: 2022-02-08 15:04:36
+ */
+import { OneListItem } from "./listType"
 import inquirer from "inquirer"
-import { info } from "@/utils"
+import { info, ProgressLogs } from "@/utils"
 import chalk from "chalk"
-import catchApi from "./catchApi"
-import ProgressLogs from "@/utils/ProgressLogs"
+import catchApi from "./run"
 import { emoji } from "node-emoji"
-import { camelCase } from "lodash"
-import { objMap } from "@/utils/util"
-
-/** 从yapi远程获取接口列表 */
-const getApis = async () => {
-  const res = await getYpiMsg<ApiListItem[]>(config.interfaceListUrl)
-  return res.data
-}
-
-/**
- * 将带了分类的两层的目录整合成一层的
- * @param apiList 
- * @returns 打平之后的数组
- */
-const typeApiPreHandle = async (apiList: ApiListItem[]) => {
-  // 获取翻译
-  const typeEn = await translate(apiList.map((item) => item.name.replace(/分类|分组/g, '') || getConfig('defaultApisType')))
-  // 将翻译驼峰化，之后要做目录名
-  const pathEn = objMap(typeEn, (k, v) => ({[k]: camelCase(v)}))
-  // 打平数组
-  const shallowList = apiList.reduce((pre, cur) => 
-    pre.concat(cur.list.map((item) => ({
-      ...item,
-      type: cur.name,
-      typeDesc: cur.desc || '',
-      pathType: pathEn[cur.name]
-    }))),[] as OneListItem[]
-  );
-  return shallowList;
-}
-
-/**
- * 整合接口列表这次要获取那些接口的数据
- * @param apiList 接口的列表
- * @returns 接口分类打平之后的数据
- */
-const listHandle = async (apiList: ApiListItem[]) => {
-  const shallowList = await typeApiPreHandle(apiList)
-  const params = getParams()
-  if (!params.type) {
-    // 没有-t的参数，直接获取全部接口
-    return shallowList;
-  } else if (getConfig('collections')[params.type]) {
-    // 获取配置文件中的集合的接口
-    const collections = getConfig('collections')[params.type] as string[]
-    return shallowList.filter((item) => collections.every((e) => item.tag.includes(e)))
-  } else {
-    // 匹配上了url，获取一个接口
-    const urlRes = shallowList.filter((item) => item.path.trim() === params.type.trim())
-    if (urlRes.length) {
-      return urlRes
-    }
-    // 获取制定分类的接口
-    const { similarSubstring } = require('similar-substring');
-    return shallowList.filter((item) => 
-      (+similarSubstring(item.type || '', params.type || '').similarity > +config.similarThreshold)
-    )
-  }
-}
+import { getApis, listHandle } from "./catchApi"
+import { fileAfterHandle, filePreHandle } from "./fileHandle"
 
 /**
  * 开始生成任务队列
  * @param apis 任务的数组
  */
 const createTasks = async (apis: OneListItem[]) => {
+  filePreHandle()
   const progressLog = new ProgressLogs({
     title: 'ok！现在开始生成方法',
     record: true,
@@ -87,6 +31,7 @@ const createTasks = async (apis: OneListItem[]) => {
     await catchApi(apis[i])
     progressLog.next('success')
   }
+  fileAfterHandle()
 }
 
 /**

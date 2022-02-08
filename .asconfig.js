@@ -1,3 +1,8 @@
+/*
+ * @Author: zml
+ * @Date: 2022-01-12 11:16:39
+ * @LastEditTime: 2022-02-08 16:27:45
+ */
 module.exports = {
   // 项目id
   projectId: 132,
@@ -10,7 +15,7 @@ module.exports = {
     test: ["3.2"]
   },
   /** 生成请求的目录 */
-  outPath: "",
+  outPath: "apis",
   /** 引入的model */
   importModel: ["import request from '@/utils/request'"],
   /**

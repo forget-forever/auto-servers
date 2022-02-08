@@ -1,10 +1,17 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 13:05:20
- * @LastEditTime: 2022-01-28 17:46:29
+ * @LastEditTime: 2022-02-08 13:50:30
  */
+import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync, unlinkSync } from "fs";
 import { compile } from "json-schema-to-typescript";
+import { join } from "path";
 import { getParams } from "./params";
+import Logs from "./ProgressLogs";
+
+export * from './util'
+
+export const ProgressLogs = Logs
 
 /**
  * 终端输出字符串
@@ -62,5 +69,55 @@ export const compileType: typeof compile = async (...args) => {
     return typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '')
   } catch (error) {
     return Promise.reject(error)
+  }
+}
+
+/**
+ * 复制文件夹
+ * @param src 源路径
+ * @param dest 目标路径
+ * @returns 
+ */
+export const copyDirectory = (src: string, dest: string) => {
+  if (existsSync(src) == false) {
+    return;
+  }
+  if (existsSync(dest) == false) {
+    mkdirSync(dest, {recursive: true});
+  }
+  // console.log("src:" + src + ", dest:" + dest);
+  // 拷贝新的内容进去
+  const dirs = readdirSync(src);
+  dirs.forEach((item) => {
+    const item_path = join(src, item);
+    const temp = statSync(item_path);
+    if (temp.isFile()) { // 是文件
+      // console.log("Item Is File:" + item);
+      copyFileSync(item_path, join(dest, item));
+    } else if (temp.isDirectory()){ // 是目录
+      // console.log("Item Is Directory:" + item);
+      copyDirectory(item_path, join(dest, item));
+    }
+  });
+}
+
+/**
+ * 清空文件夹
+ * @param dir 文件夹路径
+ */
+export const deleteDirectory = (dir: string) => {
+  if (existsSync(dir) == true) {
+    const files = readdirSync(dir);
+    files.forEach(function(item){
+      const item_path = join(dir, item);
+      // console.log(item_path);
+      if (statSync(item_path).isDirectory()) {
+        deleteDirectory(item_path);
+      }
+      else {
+        unlinkSync(item_path);
+      }
+    });
+    rmdirSync(dir);
   }
 }
