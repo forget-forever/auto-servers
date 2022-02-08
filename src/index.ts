@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('module-alias/register')
 import chalk from "chalk";
 import { program } from "commander";
 import { resolve } from "path";

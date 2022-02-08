@@ -1,16 +1,15 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-07 19:02:02
+ * @LastEditTime: 2022-02-08 11:20:57
  */
-import { getConfig } from "../../utils/config";
-import { getYpiMsg } from "../../servers";
 import { ApiDetail } from "./detailType";
 import { OneListItem } from "./listType";
-import { compileType } from "../../utils";
-import config from "../../config";
-import { readFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync } from "fs";
 import { resolve } from "path";
+import { getConfig } from "@/utils/config";
+import config from "@/config";
+import { getYpiMsg } from "@/servers";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = {...data}
@@ -25,7 +24,9 @@ const apiDetailHandle = (data: ApiDetail<'str'>) => {
 
 const getPath = (api: OneListItem) => {
   const extendName = getConfig('extendName')
-  const file = readFileSync(resolve(__dirname, `../../tmp/${api.pathType}/index${extendName}`))
+  mkdirSync(resolve(config.rootDir, `tmp/${api.pathType}`), {recursive: true})
+  const file = existsSync(resolve(config.rootDir, `tmp/${api.pathType}/index${extendName}`))
+  console.log(file)
 }
 
 const catchApi = async (api: OneListItem) => {
@@ -43,8 +44,8 @@ const catchApi = async (api: OneListItem) => {
   // }
   const serversTemplate = getConfig('serveiceTemplate')
   console.log(serversTemplate(apiDetail.path, 'P', 'D', 'R', apiDetail.method, apiDetail))
+  getPath(api)
   return 'success' as const
-  // console.log(res.data.title)
 }
 
 export default catchApi

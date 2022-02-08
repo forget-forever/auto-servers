@@ -1,5 +1,10 @@
+/*
+ * @Author: zml
+ * @Date: 2022-01-10 16:49:23
+ * @LastEditTime: 2022-02-08 11:19:48
+ */
 // import pinyin from "pinyin"
-import { translate } from "../servers"
+import { translate } from "@/servers"
 
 const init = async () => {
   // console.log(pinyin('aaa/aa').join())

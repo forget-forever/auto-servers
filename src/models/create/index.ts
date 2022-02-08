@@ -1,16 +1,16 @@
-import { getParams } from "../../utils/params"
-import { getYpiMsg, translate } from "../../servers"
+import { getParams } from "@/utils/params"
+import { getYpiMsg, translate } from "@/servers"
 import { ApiListItem, OneListItem } from "./listType"
-import config from "../../config"
-import { getConfig } from "../../utils/config"
+import config from "@/config"
+import { getConfig } from "@/utils/config"
 import inquirer from "inquirer"
-import { info } from "../../utils"
+import { info } from "@/utils"
 import chalk from "chalk"
 import catchApi from "./catchApi"
-import ProgressLogs from "../../utils/ProgressLogs"
+import ProgressLogs from "@/utils/ProgressLogs"
 import { emoji } from "node-emoji"
 import { camelCase } from "lodash"
-import { objMap } from "../../utils/util"
+import { objMap } from "@/utils/util"
 
 /** 从yapi远程获取接口列表 */
 const getApis = async () => {

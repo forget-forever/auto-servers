@@ -13,4 +13,6 @@ export default {
   interfaceDetailUrl: '/api/interface/get',
   /** 获取接口的列表的url */
   interfaceListUrl: '/api/interface/list_menu',
+  /** 项目的根路径 */
+  rootDir: __dirname
 } as const
