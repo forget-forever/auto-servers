@@ -53,12 +53,12 @@ export interface ApiDetail<T extends 'obj' | 'str'> {
 	up_time: number;
 	req_query: Req_query[];
 	req_headers: HeaderItem[];
-	req_body_other: T extends 'obj' ? ItemBody : string;
+	req_body_other: T extends 'obj' ? ItemBody : string | ItemBody;
 	req_body_form: [];
 	__v: number;
 	desc: string;
 	markdown: string;
-	res_body: T extends 'obj' ? ItemBody : string;
+	res_body: T extends 'obj' ? ItemBody : string | ItemBody;
 	username: string;
 }
 

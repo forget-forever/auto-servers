@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-01-29 14:34:23
+ * @LastEditTime: 2022-02-09 16:03:15
  */
 module.exports = {
   // 项目id
@@ -40,7 +40,7 @@ module.exports = {
     }
     return (
       `(${params}) => 
-        request<${ReturnType}>(${url}, {params, method: ${method}, data})`
+  request<${ReturnType}>('${url}', {params, method: '${method}', data})`
     ) 
   },
   // 返回的参数解析类型的节点，默认是data节点开始解析
@@ -51,6 +51,8 @@ module.exports = {
   tsType: true,
   // 类型的导出形式，分为declare 和 export两种
   exportType: "declare",
+  // 类型的命名空间
+  typeNamespace: 'Request',
   /** 默认的接口分类 */
   defaultApisType: 'utils'
 }
