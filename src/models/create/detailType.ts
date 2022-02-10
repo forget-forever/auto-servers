@@ -3,7 +3,7 @@
  * @Date: 2022-01-14 11:56:04
  * @LastEditTime: 2022-02-10 16:30:35
  */
-import { SchemaSchema } from "json-schema-to-typescript/dist/src/types/JSONSchema"
+import type { JSONSchema4 } from "json-schema";
 
 export type HeaderItem = {
 	name: string
@@ -30,7 +30,7 @@ export type HeaderItem = {
 // 	uniqueItems: boolean
 // }
 
-export type SchemaBody = SchemaSchema
+export type SchemaBody = JSONSchema4
 
 // export type ReqType = {
 // 	type: string;

@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-10 15:59:34
- * @LastEditTime: 2022-02-10 17:45:51
+ * @LastEditTime: 2022-02-10 17:55:30
  */
 import { compileType } from "@/utils";
 import { SchemaBody } from "../create/detailType";
