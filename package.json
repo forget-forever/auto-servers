@@ -9,6 +9,8 @@
     "test": "ts-node --transpile-only src/test.ts",
     "dev:comment": "启动开发环境, 建议直接使用ts-node运行。",
     "dev": "ts-node --transpile-only src/index.ts",
+    "create:comment": "生成接口",
+    "create": "ts-node ./src/index.ts create",
     "build:comment": "构建",
     "build": "rm -rf lib && tsc --build",
     "eslint:comment": "使用 ESLint 检查并自动修复 src 目录下所有扩展名为 .ts 的文件",

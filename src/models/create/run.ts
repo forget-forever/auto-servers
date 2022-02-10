@@ -8,7 +8,7 @@ import config from "@/config";
 import { getYpiMsg } from "@/servers";
 import { ApiDetail } from "./detailType";
 import { OneListItem } from "./listType";
-import { getPath, pushFunction } from "../utils";
+import { getDest, pushFunction } from "../utils";
 import { camelCase, last } from "lodash";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
@@ -42,7 +42,8 @@ const run = async (api: OneListItem) => {
   // }
   const serversTemplate = getConfig('serveiceTemplate')
   // console.log(serversTemplate(apiDetail.path, 'P', 'D', 'R', apiDetail.method, apiDetail))
-  const {file} = getPath(api)
+  const {file} = getDest(api)
+  
   pushFunction(getFunctionName(api), serversTemplate(apiDetail.path, 'P', 'D', 'R', apiDetail.method, apiDetail), file)
 
   return 'success' as const

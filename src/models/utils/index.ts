@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 15:39:50
- * @LastEditTime: 2022-02-09 15:50:24
+ * @LastEditTime: 2022-02-10 15:12:42
  */
 import config from "@/config"
 import { getConfig } from "@/utils/config"
@@ -20,11 +20,11 @@ const getFileTpl = () => {
 }
 
 /**
- * 获取一个接口的目录
+ * 获取一个生成接口的目标文件
  * @param api 接口的基本信息
  * @returns 接口所在的路径信息
  */
- export const getPath = (api: OneListItem) => {
+ export const getDest= (api: OneListItem) => {
   const extendName = getConfig('extendName')
   const path = resolve(config.rootDir, `tmp/${api.pathType}`)
   const file = resolve(path, `index${extendName}`)
