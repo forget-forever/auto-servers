@@ -6,9 +6,12 @@
 import config from "@/config"
 import { getConfig } from "@/utils/config"
 import { existsSync, mkdirSync, writeFileSync } from "fs"
+import { camelCase, last } from "lodash"
 import { resolve } from "path"
+import { ApiDetail } from "../create/detailType"
 import { OneListItem } from "../create/listType"
 export * from './functionHandele'
+export * from './typeHandle'
 
 const getFileTpl = () => {
   const configModel = getConfig('importModel').map((item) => item.replace(/;/g, ''))
@@ -28,9 +31,17 @@ const getFileTpl = () => {
   const extendName = getConfig('extendName')
   const path = resolve(config.rootDir, `tmp/${api.pathType}`)
   const file = resolve(path, `index${extendName}`)
+  const typeFile = resolve(path, `type.d.ts`)
+
   if (!existsSync(path)) {
     mkdirSync(path, {recursive: true})
-    writeFileSync(file, `${getFileTpl()};\n\n`)
+    const tpl = getFileTpl()
+    writeFileSync(file, `${tpl}${tpl ? ';\n\n': ''}`)
   }
-  return {file, path}
+  return {file, path, typeFile}
+}
+
+export const getFunctionName = (api: OneListItem | ApiDetail<'str' | 'obj'>) => {
+  const pathArr = api.path.split('/')
+  return camelCase(last(pathArr)) || 'requestName'
 }

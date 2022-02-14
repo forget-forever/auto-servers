@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-09 16:00:00
+ * @LastEditTime: 2022-02-11 16:09:33
  */
 module.exports = {
   // 项目id
@@ -29,7 +29,7 @@ module.exports = {
    * @returns 
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  serveiceTemplate: (url, paramsType, dataType, ReturnType, method, apiDetail) => {
+  serviceTemplate: (url, paramsType, dataType, returnType, method, apiDetail) => {
     let params = ''
     if (paramsType) {
       params += `params: ${paramsType}, `
@@ -39,8 +39,8 @@ module.exports = {
     }
     return (
       `(${params}) => 
-  request<${ReturnType}>('${url}', {params, method: '${method}', data})`
-    ) 
+  request<${returnType}>('${url}', {params, method: '${method}', ${dataType ? 'data': ''}})`
+    )
   },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",

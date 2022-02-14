@@ -1,15 +1,14 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-09 16:00:42
+ * @LastEditTime: 2022-02-11 19:11:23
  */
 import { getConfig } from "@/utils/config";
 import config from "@/config";
 import { getYpiMsg } from "@/servers";
 import { ApiDetail } from "./detailType";
 import { OneListItem } from "./listType";
-import { getDest, pushFunction } from "../utils";
-import { camelCase, last } from "lodash";
+import { createType, getDest, getFunctionName, pushFunction } from "../utils";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = {...data}
@@ -22,29 +21,30 @@ const apiDetailHandle = (data: ApiDetail<'str'>) => {
   return res as ApiDetail<'obj'>
 }
 
-const getFunctionName = (api: OneListItem) => {
-  const pathArr = api.path.split('/')
-  return camelCase(last(pathArr)) || 'requestName'
-}
-
 const run = async (api: OneListItem) => {
   const res = await getYpiMsg<ApiDetail<'str'>>(config.interfaceDetailUrl, {
     formData: { id: api._id}
   })
   const apiDetail = apiDetailHandle(res.data)
-  // console.log(apiDetail.req_body_other)
-  // try {
-  //   const typeRes = await compileType(apiDetail.res_body, '')
-  //   console.log(typeRes)
-  // } catch (error) {
-  //   console.log(error)
-  //   return 'netWorkError' as const
-  // }
-  const serversTemplate = getConfig('serveiceTemplate')
-  // console.log(serversTemplate(apiDetail.path, 'P', 'D', 'R', apiDetail.method, apiDetail))
-  const {file} = getDest(api)
-  
-  pushFunction(getFunctionName(api), serversTemplate(apiDetail.path, 'P', 'D', 'R', apiDetail.method, apiDetail), file)
+
+  const serversTemplate = getConfig('serviceTemplate')
+
+  const {file, typeFile} = getDest(api)
+  const { dataTypeName, paramsTypeName, resTypeName } = await createType(apiDetail, typeFile)
+
+  pushFunction(
+    getFunctionName(api),
+    serversTemplate(
+      apiDetail.path,
+      paramsTypeName,
+      dataTypeName,
+      resTypeName,
+      apiDetail.method,
+      apiDetail
+    ),
+    file, 
+    api.title
+  )
 
   return 'success' as const
 }

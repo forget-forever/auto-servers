@@ -14,5 +14,7 @@ export default {
   /** 获取接口的列表的url */
   interfaceListUrl: '/api/interface/list_menu',
   /** 项目的根路径 */
-  rootDir: __dirname
+  rootDir: __dirname,
+  /** 类型导出方式要求 */
+  exportTypeRequire: ['export', 'declare']
 } as const

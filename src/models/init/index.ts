@@ -1,3 +1,8 @@
+/*
+ * @Author: zml
+ * @Date: 2022-01-10 20:32:04
+ * @LastEditTime: 2022-02-11 11:27:12
+ */
 import config from "@/config";
 import chalk from "chalk";
 import { copyFileSync } from "fs";
@@ -7,7 +12,7 @@ import { info } from "@/utils";
 
 const init = (name = '') => {
   const fileName = `${name}.asconfig.js`
-  copyFileSync(resolve(config.rootDir, 'tpl/asconfig.js'), resolve(process.cwd(), fileName))
+  copyFileSync(resolve(config.rootDir, 'tpl/copy.asconfig.js'), resolve(process.cwd(), fileName))
   info(chalk.bold.green(`>> 创建${fileName}成功🙆 `))
 };
 
