@@ -67,8 +67,11 @@ export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
   const resTypeName = upperFirst(`${name}Res`)
 
   const resTypeStr = await getTypeStr(api.res_body, 'root', 'data', resTypeName)
+  const { namespace } = pushType(resTypeStr, dest)
 
-  pushType(resTypeStr, dest)
-
-  return {paramsTypeName, dataTypeName, resTypeName}
+  return {
+    paramsTypeName: `${namespace}.${paramsTypeName}`,
+    dataTypeName: `${namespace}.${dataTypeName}`,
+    resTypeName: `${namespace}.${resTypeName}`,
+  }
 }

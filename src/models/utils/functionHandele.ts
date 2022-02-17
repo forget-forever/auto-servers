@@ -5,14 +5,18 @@
  */
 import { getConfig } from "@/utils/config"
 import { readFileSync, writeFileSync } from "fs"
+import { getExportType } from "./typeFileHandle"
 
-export const getFunctionFileTpl = () => {
+export const getFunctionFileTpl = (namespace = getConfig('typeNamespace')) => {
   const configModel = getConfig('importModel').map((item) => item.replace(/;/g, ''))
   const extendName = getConfig('extendName')
-  if (extendName.includes('ts')) {
-    configModel.push(`import * as Type from './type'`)
+  if (extendName.includes('ts') && getExportType() === 'export') {
+    configModel.push(`import * as ${namespace} from './type'`)
   }
-  return configModel.join(';\n')
+  if (configModel.length) {
+    return configModel.join(';\n') + ';\n\n'
+  }
+  return ''
 }
 
 /**

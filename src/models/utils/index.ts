@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 15:39:50
- * @LastEditTime: 2022-02-17 11:41:04
+ * @LastEditTime: 2022-02-17 17:30:21
  */
 import config from "@/config"
 import { getConfig } from "@/utils/config"
@@ -11,7 +11,7 @@ import { resolve } from "path"
 import { ApiDetail } from "../create/detailType"
 import { OneListItem } from "../create/listType"
 import { getFunctionFileTpl } from "./functionHandele"
-import { newFile } from "./typeFileHandle"
+import { newTypeFile } from "./typeFileHandle"
 export * from './functionHandele'
 export * from './typeHandle'
 
@@ -28,9 +28,8 @@ export * from './typeHandle'
 
   if (!existsSync(path)) {
     mkdirSync(path, {recursive: true})
-    const tpl = getFunctionFileTpl()
-    writeFileSync(file, `${tpl}${tpl ? ';\n\n': ''}`)
-    writeFileSync(typeFile, newFile())
+    writeFileSync(file, getFunctionFileTpl())
+    writeFileSync(typeFile, newTypeFile())
   }
   return {file, path, typeFile}
 }

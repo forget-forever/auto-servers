@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-17 15:16:29
+ * @LastEditTime: 2022-02-17 17:24:07
  */
 import config from "@/config"
 import { info } from "@/utils"
@@ -21,7 +21,7 @@ const validatorExportType = (type: string): type is ExportType => {
   return true
 }
 
-const getExportType = (): ExportType => {
+export const getExportType = (): ExportType => {
   const exportType = getConfig('exportType')
   if (validatorExportType(exportType)) {
     return exportType
@@ -37,7 +37,7 @@ const getTypeTpl = () => {
   return ''
 }
 
-export const newFile = (initVal = '', type: ExportType = getExportType(), namespace: string = getConfig('typeNamespace')) => {
+export const newTypeFile = (initVal = '', type: ExportType = getExportType(), namespace: string = getConfig('typeNamespace')) => {
   const val = initVal.replace(/^\n*|\n*$/g, '')
   const tpl = getTypeTpl()
   if (type === 'declare') {
@@ -58,8 +58,9 @@ const getTypeFile = (dest: string) => {
 }
 
 const getNamespace = (content: string) => {
-  const reg = /(?<=(declare namespace ))(.*)(?={)/
-  return (content.match(reg) || [getConfig('typeNamespace')])[0].trim()
+  const reg1 = /(?<=(declare namespace ))(.*)(?={)/
+  const reg2 = /(?<=(import \* as ))(.*)(?=( from))/
+  return (content.match(reg1) || content.match(reg2) || [getConfig('typeNamespace')])[0].trim()
 }
 
 type GetContentType =  (dest: string) => {
@@ -70,7 +71,7 @@ type GetContentType =  (dest: string) => {
   /** 该文件的声明形式 */
   type: ExportType
   /** 命名空间 */
-  namespace?: string
+  namespace: string
 }
 
 /**
@@ -83,12 +84,11 @@ export const getContent: GetContentType = (dest) => {
   const res = { } as ReturnType<GetContentType>
   /** 全局命名空间的正则 */
   const globalReg = /(?<=(declare global)( )*{)(.*)(?=})/s
-  
+  const namespace = getNamespace(content)
   if (globalReg.test(content)) {
     /** 全局命名空间 */
     const [globalContent] = content.match(globalReg) || ['']
     /** 命名空间 */
-    const namespace = getNamespace(globalContent)
     /** 获取自定义的命名空间的正则 */
     const namespaceReg = new RegExp(`(?<=declare namespace ${namespace}( )*{)(.*)(?=})`, 's' )
     // 识别该文件是declare形式的导出形式
@@ -105,7 +105,7 @@ export const getContent: GetContentType = (dest) => {
     [res.content] = namespaceContentArr || ['']
     res.type = 'declare'
     res.setContent = (newContent) => {
-      writeFileSync(dest, newFile(newContent, 'declare', namespace))
+      writeFileSync(dest, newTypeFile(newContent, 'declare', namespace))
     }
     res.namespace = namespace
   } else {
@@ -114,15 +114,17 @@ export const getContent: GetContentType = (dest) => {
     res.setContent = (newContent) => {
       writeFileSync(dest, newContent)
     }
+    res.namespace = namespace
   }
   return res
 }
 
 export const pushType = (typeStr: string, dest: string) => {
-  const { content, setContent, type } = getContent(dest)
+  const { content, setContent, type, namespace } = getContent(dest)
   if (type === 'export') {
     setContent(`${content}\n${type} ${typeStr}`)
   } else {
     setContent(`${content}${typeStr}`)
   }
+  return { namespace, type }
 }

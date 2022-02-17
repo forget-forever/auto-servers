@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-17 14:36:29
+ * @LastEditTime: 2022-02-17 17:41:39
  */
 module.exports = {
   // 项目id
@@ -45,7 +45,7 @@ module.exports = {
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 类型的导出形式，分为 declare 和 export两种
-  exportType:  "declare",
+  exportType:  "export",
   /** 默认的接口分类 */
   defaultApisType: 'utils'
 }
