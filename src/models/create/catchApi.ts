@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 14:53:05
- * @LastEditTime: 2022-02-17 12:47:44
+ * @LastEditTime: 2022-02-17 19:17:32
  */
 import config from "@/config"
 import { getYpiMsg, translate } from "@/servers"
@@ -33,7 +33,7 @@ const typeApiPreHandle = async (apiList: ApiListItem[]) => {
       ...item,
       type: cur.name,
       typeDesc: cur.desc || '',
-      pathType: pathEn[cur.name.replace(/分类|分组/g, '')]
+      pathType: pathEn[cur.name.replace(/分类|分组/g, '')] || getConfig('defaultApisType')
     }))),[] as OneListItem[]
   );
   return shallowList;

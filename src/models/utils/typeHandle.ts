@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-10 15:59:34
- * @LastEditTime: 2022-02-17 14:56:49
+ * @LastEditTime: 2022-02-17 20:08:09
  */
 import { compileType } from "@/utils";
 import { upperFirst } from "lodash";
@@ -62,16 +62,37 @@ export const getTypeStr = async (schema: SchemaBody, name: string, startRoot: st
 export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
   const name = getFunctionName(api)
 
-  const paramsTypeName = upperFirst(`${name}Params`)
-  const dataTypeName = upperFirst(`${name}Data`)
-  const resTypeName = upperFirst(`${name}Res`)
+  let paramsTypeName = upperFirst(`${name}Params`)
+  let dataTypeName = upperFirst(`${name}Data`)
+  let resTypeName = upperFirst(`${name}Res`)
 
-  const resTypeStr = await getTypeStr(api.res_body, 'root', 'data', resTypeName)
-  const { namespace } = pushType(resTypeStr, dest)
+  const typeStr: string[] = []
+  // let resTypeStr = ''
+  // let dataTypeStr = ''
+  if (api.res_body) {
+    typeStr.push(await getTypeStr(api.res_body, 'root', 'data', resTypeName))
+  } else {
+    resTypeName = ''
+  }
+  
+  if (api.req_body_other) {
+    typeStr.push(await getTypeStr(api.req_body_other, '', '', dataTypeName))
+  } else {
+    dataTypeName = ''
+  }
+
+  if (api.req_query) {
+    // typeStr.push(await getTypeStr(api.req_query, '', '', paramsTypeName))
+    console.log(await compileType(api.req_query, paramsTypeName, {ignoreMinAndMaxItems: true,}))
+  } else {
+    paramsTypeName = ''
+  }
+
+  const { namespace } = pushType(typeStr.join('\n'), dest)
 
   return {
-    paramsTypeName: `${namespace}.${paramsTypeName}`,
-    dataTypeName: `${namespace}.${dataTypeName}`,
-    resTypeName: `${namespace}.${resTypeName}`,
+    paramsTypeName: paramsTypeName ? `${namespace}.${paramsTypeName}` : '',
+    dataTypeName: dataTypeName ? `${namespace}.${dataTypeName}` : '',
+    resTypeName: resTypeName ? `${namespace}.${resTypeName}` : '',
   }
 }

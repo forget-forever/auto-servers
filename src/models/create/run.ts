@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-17 12:38:36
+ * @LastEditTime: 2022-02-17 19:24:45
  */
 import { getConfig } from "@/utils/config";
 import config from "@/config";
@@ -23,7 +23,7 @@ const apiDetailHandle = (data: ApiDetail<'str'>) => {
 
 const run = async (api: OneListItem) => {
   const res = await getYpiMsg<ApiDetail<'str'>>(config.interfaceDetailUrl, {
-    formData: { id: api._id}
+    formData: { id: api._id }
   })
   const apiDetail = apiDetailHandle(res.data)
 

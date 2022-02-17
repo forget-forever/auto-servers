@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-17 17:24:07
+ * @LastEditTime: 2022-02-17 19:15:54
  */
 import config from "@/config"
 import { info } from "@/utils"
@@ -37,20 +37,26 @@ const getTypeTpl = () => {
   return ''
 }
 
-export const newTypeFile = (initVal = '', type: ExportType = getExportType(), namespace: string = getConfig('typeNamespace')) => {
+export const newTypeFile = (
+  initVal = '',
+  type: ExportType = getExportType(),
+  namespace: string = getConfig('typeNamespace'),
+  tpl = getTypeTpl()
+) => {
   const val = initVal.replace(/^\n*|\n*$/g, '')
-  const tpl = getTypeTpl()
   if (type === 'declare') {
     const beautify = require('js-beautify').js
-    return beautify(`${tpl}
-
-declare global {
-  declare namespace ${namespace} {
-    ${val}
+    return beautify(`${tpl.replace(/^\n*|\n*$/g, '')}
+    
+        declare global {
+        declare namespace ${namespace} {
+          ${val}
+        }
+      }`,
+      { indent_size: 2, space_in_empty_paren: true }
+    )
   }
-}`, { indent_size: 2, space_in_empty_paren: true })
-  }
-  return `${tpl}\n${val}`
+  return `${tpl.replace(/^\n*|\n*$/g, '')}\n\n${val}`
 }
 
 const getTypeFile = (dest: string) => {
@@ -92,10 +98,11 @@ export const getContent: GetContentType = (dest) => {
     /** 获取自定义的命名空间的正则 */
     const namespaceReg = new RegExp(`(?<=declare namespace ${namespace}( )*{)(.*)(?=})`, 's' )
     // 识别该文件是declare形式的导出形式
-    // const baseContentReg = /((.*)(?=(global)( )*{))/s
+    const baseContentReg = /((.*)(?=(declare global)( )*{))/s
     
     /** 基础数据 */
-    // const [baseContent] = content.match(baseContentReg) || ['']
+    const [baseContent] = content.match(baseContentReg) || ['']
+    console.log(baseContent)
     /** 自定义命名空间 */
     const namespaceContentArr = globalContent.match(namespaceReg)
     if (!namespaceContentArr) {
@@ -105,7 +112,7 @@ export const getContent: GetContentType = (dest) => {
     [res.content] = namespaceContentArr || ['']
     res.type = 'declare'
     res.setContent = (newContent) => {
-      writeFileSync(dest, newTypeFile(newContent, 'declare', namespace))
+      writeFileSync(dest, newTypeFile(newContent, 'declare', namespace, baseContent))
     }
     res.namespace = namespace
   } else {
