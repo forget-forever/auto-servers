@@ -1,13 +1,13 @@
 /*
  * @Author: zml
  * @Date: 2022-01-10 20:32:24
- * @LastEditTime: 2022-02-08 15:04:36
+ * @LastEditTime: 2022-02-17 12:41:17
  */
 import { OneListItem } from "./listType"
 import inquirer from "inquirer"
 import { info, ProgressLogs } from "@/utils"
 import chalk from "chalk"
-import catchApi from "./run"
+import run from "./run"
 import { emoji } from "node-emoji"
 import { getApis, listHandle } from "./catchApi"
 import { fileAfterHandle, filePreHandle } from "./fileHandle"
@@ -28,7 +28,7 @@ const createTasks = async (apis: OneListItem[]) => {
   })
   progressLog.start()
   for(let i = 0; i < apis.length; i++) {
-    await catchApi(apis[i])
+    await run(apis[i])
     progressLog.next('success')
   }
   fileAfterHandle()

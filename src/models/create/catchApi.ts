@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 14:53:05
- * @LastEditTime: 2022-02-08 14:53:06
+ * @LastEditTime: 2022-02-17 12:47:44
  */
 import config from "@/config"
 import { getYpiMsg, translate } from "@/servers"
@@ -33,7 +33,7 @@ const typeApiPreHandle = async (apiList: ApiListItem[]) => {
       ...item,
       type: cur.name,
       typeDesc: cur.desc || '',
-      pathType: pathEn[cur.name]
+      pathType: pathEn[cur.name.replace(/分类|分组/g, '')]
     }))),[] as OneListItem[]
   );
   return shallowList;
@@ -62,8 +62,9 @@ export const listHandle = async (apiList: ApiListItem[]) => {
     }
     // 获取制定分类的接口
     const { similarSubstring } = require('similar-substring');
-    return shallowList.filter((item) => 
+    const res = shallowList.filter((item) => 
       (+similarSubstring(item.type || '', params.type || '').similarity > +config.similarThreshold)
     )
+    return res
   }
 }

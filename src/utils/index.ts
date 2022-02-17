@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 13:05:20
- * @LastEditTime: 2022-02-08 13:50:30
+ * @LastEditTime: 2022-02-17 13:52:35
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync, unlinkSync } from "fs";
 import { compile } from "json-schema-to-typescript";

@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-02-11 15:46:59
+ * @LastEditTime: 2022-02-17 12:52:51
  */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -53,7 +53,7 @@ module.exports = {
   // 是否需要生成ts类型, 默认为true
   tsType: true,
   // 类型的导出形式，分为 declare 和 export两种
-  exportType:  "export",
+  exportType:  "declare",
   // 类型的命名空间
   typeNamespace: 'Request',
   /** 默认的接口分类 */

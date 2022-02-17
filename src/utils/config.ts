@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-06 21:24:29
- * @LastEditTime: 2022-02-08 11:20:27
+ * @LastEditTime: 2022-02-17 10:21:57
  */
 import { resolve } from "path";
 import type asc from '@/tpl/asconfig'
@@ -9,18 +9,22 @@ import config from "@/config";
 import chalk from "chalk";
 import { getParams } from "./params";
 
+type AscType = Omit<typeof asc, 'importTypeModel'> & {
+  importTypeModel?: string[]
+}
+
 /** 默认配置项 */
-let defaultConfig: (typeof asc) | undefined
+let defaultConfig: AscType | undefined
 
 /** 用户配置项 */
-let userConfig: (typeof asc) | undefined
+let userConfig: AscType | undefined
 
 /** 获取默认的配置项，需要读取文件 */
 export const getDefaultConfig = () => {
   if (defaultConfig) {
     return defaultConfig
   }
-  defaultConfig = require('@/tpl/asconfig') as typeof asc
+  defaultConfig = require('@/tpl/asconfig') as AscType
   return defaultConfig
 };
 
@@ -31,7 +35,7 @@ export const getUserConfig = () => {
     if (userConfig) {
       return userConfig
     }
-    userConfig = require(resolve(process.cwd(), params.configFile)) as typeof asc
+    userConfig = require(resolve(process.cwd(), params.configFile)) as AscType
     return userConfig
   } catch (error) {
     console.log(`读取配置文件失败，请检查是否存在文件：${chalk.yellow(resolve(process.cwd(), params.configFile))}`)
@@ -44,7 +48,7 @@ export const getUserConfig = () => {
  * @param key 配置项的键名
  * @returns 配置项
  */
-export const getConfig = <K extends keyof typeof asc>(key: K): (typeof asc)[K] => {
+export const getConfig = <K extends keyof AscType>(key: K): AscType[K] => {
   if (!config.requiredConfig.includes(key)) {
     return getUserConfig()[key] || getDefaultConfig()[key]
   } else if (getUserConfig()[key]){

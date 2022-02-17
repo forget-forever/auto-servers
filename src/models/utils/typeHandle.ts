@@ -1,15 +1,13 @@
 /*
  * @Author: zml
  * @Date: 2022-02-10 15:59:34
- * @LastEditTime: 2022-02-11 16:33:22
+ * @LastEditTime: 2022-02-17 14:56:49
  */
-import config from "@/config";
-import { compileType, info } from "@/utils";
-import { getConfig } from "@/utils/config";
-import chalk from "chalk";
+import { compileType } from "@/utils";
 import { upperFirst } from "lodash";
 import { getFunctionName } from ".";
 import { ApiDetail, SchemaBody } from "../create/detailType";
+import { pushType } from "./typeFileHandle";
 
 /**
  * 得到类型字符串
@@ -25,7 +23,7 @@ const getType = async (schema: SchemaBody, startRoot: string, typeName: string) 
 
     const keys = Object.keys(schema.properties || {})
     if(keys.includes(startRoot)) {
-      return compileType(schema.properties[startRoot], typeName)
+      return compileType(schema.properties[startRoot], typeName, {ignoreMinAndMaxItems: true,})
     }
     let res: string | undefined
     for(const k in keys) {
@@ -44,15 +42,15 @@ const getType = async (schema: SchemaBody, startRoot: string, typeName: string) 
  * @param startRoot 开始节点
  * @param typeName 生成的类型名称
  */
-export const addType = async (schema: SchemaBody, name: string, startRoot: string, typeName: string) => {
+export const getTypeStr = async (schema: SchemaBody, name: string, startRoot: string, typeName: string) => {
   let typeStr: string | undefined = ''
   if (name === startRoot) {
-    typeStr = await compileType(schema, typeName)
+    typeStr = await compileType(schema, typeName, {ignoreMinAndMaxItems: true,})
   } else {
     typeStr = await getType(schema, startRoot, typeName)
   }
   if (typeStr) {
-    return typeStr
+    return typeStr.replace(/^(.*)(export )/s, '').replace(/^\n*|\n*$/g, '')
   }
   return Promise.reject(Error('类型添加失败'))
 }
@@ -67,6 +65,10 @@ export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
   const paramsTypeName = upperFirst(`${name}Params`)
   const dataTypeName = upperFirst(`${name}Data`)
   const resTypeName = upperFirst(`${name}Res`)
+
+  const resTypeStr = await getTypeStr(api.res_body, 'root', 'data', resTypeName)
+
+  pushType(resTypeStr, dest)
 
   return {paramsTypeName, dataTypeName, resTypeName}
 }
