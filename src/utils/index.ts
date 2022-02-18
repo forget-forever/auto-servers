@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 13:05:20
- * @LastEditTime: 2022-02-17 13:52:35
+ * @LastEditTime: 2022-02-18 18:39:32
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync, unlinkSync } from "fs";
 import { compile } from "json-schema-to-typescript";
@@ -66,7 +66,8 @@ export const httpBuilderUrl = (url: string, data: Record<string, string>) => {
 export const compileType: typeof compile = async (...args) => {
   try {
     const typeRes = await compile(...args)
-    return typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '')
+    // .replace(/^(.*)(export )/s, '')
+    return typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '').replace(/^(.*)(export )/s, '').replace(/^\n*|\n*$/g, '')
   } catch (error) {
     return Promise.reject(error)
   }

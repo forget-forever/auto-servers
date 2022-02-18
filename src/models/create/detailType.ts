@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-14 11:56:04
- * @LastEditTime: 2022-02-10 16:30:35
+ * @LastEditTime: 2022-02-18 14:34:13
  */
 import type { JSONSchema4 } from "json-schema";
 
@@ -59,14 +59,14 @@ export interface ApiDetail<T extends 'obj' | 'str'> {
 	uid: number;
 	add_time: number;
 	up_time: number;
-	req_query: Req_query[];
+	req_query?: Req_query[];
 	req_headers: HeaderItem[];
-	req_body_other: T extends 'obj' ? SchemaBody : string | SchemaBody;
+	req_body_other?: T extends 'obj' ? SchemaBody : string | SchemaBody;
 	req_body_form: [];
 	__v: number;
 	desc: string;
 	markdown: string;
-	res_body: T extends 'obj' ? SchemaBody : string | SchemaBody;
+	res_body?: T extends 'obj' ? SchemaBody : string | SchemaBody;
 	username: string;
 }
 

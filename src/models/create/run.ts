@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-17 19:24:45
+ * @LastEditTime: 2022-02-18 15:42:54
  */
 import { getConfig } from "@/utils/config";
 import config from "@/config";
@@ -30,6 +30,8 @@ const run = async (api: OneListItem) => {
   const serversTemplate = getConfig('serviceTemplate')
 
   const {file, typeFile} = getDest(api)
+
+  /** 目前使用这个方法，现在还是本地的，之后yapi更新接口，使用线上的接口获取类型 */
   const { dataTypeName, paramsTypeName, resTypeName } = await createType(apiDetail, typeFile)
 
   pushFunction(

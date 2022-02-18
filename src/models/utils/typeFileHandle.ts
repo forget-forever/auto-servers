@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-17 19:15:54
+ * @LastEditTime: 2022-02-18 19:02:25
  */
 import config from "@/config"
 import { info } from "@/utils"
@@ -47,16 +47,15 @@ export const newTypeFile = (
   if (type === 'declare') {
     const beautify = require('js-beautify').js
     return beautify(`${tpl.replace(/^\n*|\n*$/g, '')}
-    
         declare global {
         declare namespace ${namespace} {
           ${val}
         }
       }`,
-      { indent_size: 2, space_in_empty_paren: true }
-    )
+      { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
+    ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
   }
-  return `${tpl.replace(/^\n*|\n*$/g, '')}\n\n${val}`
+  return `${tpl.replace(/^\n*|\n*$/g, '')}${tpl ? '\n\n' : ''}${val}`
 }
 
 const getTypeFile = (dest: string) => {
@@ -65,7 +64,7 @@ const getTypeFile = (dest: string) => {
 
 const getNamespace = (content: string) => {
   const reg1 = /(?<=(declare namespace ))(.*)(?={)/
-  const reg2 = /(?<=(import \* as ))(.*)(?=( from))/
+  const reg2 = /(?<=(import(\s)+\*(\s)+as ))(.*)(?=((\s)+from))/g
   return (content.match(reg1) || content.match(reg2) || [getConfig('typeNamespace')])[0].trim()
 }
 
@@ -102,7 +101,7 @@ export const getContent: GetContentType = (dest) => {
     
     /** 基础数据 */
     const [baseContent] = content.match(baseContentReg) || ['']
-    console.log(baseContent)
+
     /** 自定义命名空间 */
     const namespaceContentArr = globalContent.match(namespaceReg)
     if (!namespaceContentArr) {
@@ -126,12 +125,13 @@ export const getContent: GetContentType = (dest) => {
   return res
 }
 
-export const pushType = (typeStr: string, dest: string) => {
+export const pushType = (typeArr: string[], dest: string) => {
   const { content, setContent, type, namespace } = getContent(dest)
   if (type === 'export') {
-    setContent(`${content}\n${type} ${typeStr}`)
+    const typeStr = typeArr.map((ele) => `${type} ${ele}`).join('\n\n')
+    setContent(`${content}\n${typeStr}`)
   } else {
-    setContent(`${content}${typeStr}`)
+    setContent(`${content}\n${typeArr.join('\n')}`)
   }
   return { namespace, type }
 }
