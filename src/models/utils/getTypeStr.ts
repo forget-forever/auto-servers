@@ -1,10 +1,15 @@
-import { compileType } from "@/utils"
-import { Req_query, SchemaBody } from "../create/detailType"
-
 /*
  * @Author: zml
  * @Date: 2022-02-18 15:57:47
- * @LastEditTime: 2022-02-18 18:58:32
+ * @LastEditTime: 2022-02-18 19:14:18
+ */
+import { compileType } from "@/utils"
+import { Req_query, SchemaBody } from "../create/detailType"
+
+/**
+ * 校验是不是空类型
+ * @param str 生成的类型字符串
+ * @returns 如果是空的类型会返回undefined， 否则就原样返回
  */
 const validateNullType = (str = '') => {
   const interfaceNullReg = /interface(\s)+(\w)*(\s)+(\{)(\n)*(\})/g
@@ -62,6 +67,11 @@ export const getTypeStr = async (schema: SchemaBody, name: string, startRoot: st
   return undefined
 }
 
+/**
+ * query数组生成typeSchema
+ * @param queryArr query的数组
+ * @returns 
+ */
 export const createQuerySchema = (queryArr: Req_query[]): SchemaBody => {
   const getType = (str: string) => {
     if (str === 'String') {
