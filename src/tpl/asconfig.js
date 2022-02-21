@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-02-21 15:45:20
+ * @LastEditTime: 2022-02-21 15:54:47
  */
 
 module.exports = {
@@ -19,9 +19,9 @@ module.exports = {
     test: ["3.2", "utils"]
   },
   /** 生成请求的目录 */
-  outPath: "servers",
+  outPath: "src/servers",
   /** 类型文件中引入的model */
-  importTypeModel: undefined,
+  importTypeModel: [],
   /**
    * 生成的方法模版`
    * @param {{

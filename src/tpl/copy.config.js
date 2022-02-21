@@ -38,7 +38,7 @@ module.exports = {
   //   test: ["3.2", "utils"]
   // },
   
-  // outPath: "servers", /** 生成请求的目录 */
+  // outPath: "src/servers", /** 生成请求的目录 */
 
   // typeRootNode: "data", /** 返回的参数解析类型的节点，默认是data节点开始解析 */
 
