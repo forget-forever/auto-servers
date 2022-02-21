@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-21 14:49:55
+ * @LastEditTime: 2022-02-21 15:32:04
  */
 module.exports = {
   // 项目id
@@ -27,16 +27,17 @@ module.exports = {
    *  returnType: string, // 返回的结果类型
    *  method: string, // 请求方式
    *  paramsHandle: (paramsType = '', dataType = '', params = 'params', data = 'data') => string, // 参数的预处理
+   *  requestDataHandle: (paramsType?: string, dataType?: string, , params = 'params', data = 'data') => string, // 请求参数的预处理
    *  urlHandle: (url: string, params = 'params') => string, // 内置的路径预处理函数，处理路由传参
    *  apiDetail: import("@/models/create/detailType").ApiDetail<'obj'> // 接口的详情
-   * }} config
+   * }} api
    * @returns {string} 方法字符串
    */
-  serviceTemplate: (config) => {
-    const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, apiDetail} = config
+  serviceTemplate: (api) => {
+    const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
     return (
       `(${paramsHandle(paramsType, dataType)}) => 
-  request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {params, method: '${method}', ${dataType ? 'data': ''}})`
+  request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
     )
   },
   // 返回的参数解析类型的节点，默认是data节点开始解析

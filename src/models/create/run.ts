@@ -8,7 +8,7 @@ import config from "@/config";
 import { getYpiMsg } from "@/servers";
 import { ApiDetail } from "./detailType";
 import { OneListItem } from "./listType";
-import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle } from "../utils";
+import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle, requestDataPreHandle } from "../utils";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = {...data}
@@ -44,6 +44,7 @@ const run = async (api: OneListItem) => {
       method: apiDetail.method,
       paramsHandle: paramsPreHandle,
       urlHandle: urlPreHandle,
+      requestDataHandle: requestDataPreHandle,
       apiDetail
     }),
     file, 

@@ -16,9 +16,10 @@ export const ProgressLogs = Logs
 /**
  * 终端输出字符串
  * @param msg 字符串，支持chalk字符串
- * @param type 什么模式下输出，默认全部
+ * @param type 什么模式下输出，默认 ‘all’
+ * @param exit 是否结束流程
  */
-export const info = (msg: Parameters<typeof console.info>[0], type: 'debug' | 'all' = 'all') => {
+export const info = (msg: Parameters<typeof console.info>[0], type: 'debug' | 'all' = 'all', exit = false) => {
   switch(type) {
     case 'all':
       console.info(msg);
@@ -28,6 +29,9 @@ export const info = (msg: Parameters<typeof console.info>[0], type: 'debug' | 'a
         console.info(msg)
       }
       break;
+  }
+  if (exit) {
+    process.exit()
   }
 }
 

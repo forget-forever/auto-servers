@@ -16,16 +16,17 @@ module.exports = {
    *  returnType: string, // 返回的结果类型
    *  method: string, // 请求方式
    *  paramsHandle: (paramsType = '', dataType = '', params = 'params', data = 'data') => string, // 参数的预处理
+   *  requestDataHandle: (paramsType?: string, dataType?: string, , params = 'params', data = 'data') => string, // 请求参数的预处理
    *  urlHandle: (url: string, params = 'params') => string, // 内置的路径预处理函数，处理路由传参
    *  apiDetail: import("@/models/create/detailType").ApiDetail<'obj'> // 接口的详情
    * }} api
    * @returns {string} 方法字符串
    */
   // serviceTemplate: (api) => {
-  //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, apiDetail} = api
+  //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
   //   return (
   //     `(${paramsHandle(paramsType, dataType)}) => 
-  // request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {params, method: '${method}', ${dataType ? 'data': ''}})`
+  // request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
   //   )
   // },
 

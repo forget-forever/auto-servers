@@ -79,3 +79,7 @@ export const paramsPreHandle = (paramsType = '', dataType = '', params = 'params
   }
   return res
 }
+
+export const requestDataPreHandle = (paramsType = '', dataType = '', params = 'params', data = 'data') => {
+  return `${paramsType ? ` ${params},` : ''}${dataType ? ` ${data},`: '' }`
+}

@@ -41,8 +41,7 @@ const create = async () => {
   const apiList = await getApis()
   const fetchList = await listHandle(apiList)
   if (!fetchList.length) {
-    info(chalk.bold.yellow('>> 没有相关的接口，程序终止！'))
-    process.exit()
+    info(chalk.bold.yellow('>> 没有相关的接口，程序终止！'), 'all', true)
   }
   info(fetchList.map((item) => item.path))
   const answer = await inquirer.prompt({
@@ -53,8 +52,7 @@ const create = async () => {
   if (answer.continue) {
     createTasks(fetchList)
   } else {
-    info(chalk.bold.red('>> 🤔取消获取servers方法，程序终止运行！'))
-    process.exit()
+    info(chalk.bold.red('>> 🤔取消获取servers方法，程序终止运行！'), 'all', true)
   }
 }
 

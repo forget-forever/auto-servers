@@ -5,7 +5,7 @@ import { program } from "commander";
 import { resolve } from "path";
 import create from "./models/create";
 import init from "./models/init";
-import { info, infoSplitLine } from "./utils";
+import { info, } from "./utils";
 import { getParams, setParams } from "./utils/params";
 
 program.version(require("../package.json").version, '-v --version').usage('<command> <command> [name]');
@@ -15,7 +15,6 @@ program.command('init [name]').description('init loading....').action((name) => 
 })
 
 program.command('create').option('-c [configFile]').option('-t [type]').option('-d [debug]').action((option = {}) => {
-  infoSplitLine()
   setParams({type: option.t, configFile: option.c, debug: option.d})
   const params = getParams()
   info(`配置文件： ${chalk.green(resolve(process.cwd(), params.configFile))}`)

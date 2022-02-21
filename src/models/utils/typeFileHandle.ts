@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-21 10:45:05
+ * @LastEditTime: 2022-02-21 15:23:37
  */
 import config from "@/config"
 import { info } from "@/utils"
@@ -14,8 +14,7 @@ type ExportType = typeof config.exportTypeRequire[number]
 const validatorExportType = (type: string): type is ExportType => {
   const { exportTypeRequire } = config
   if (!exportTypeRequire.includes(type as ExportType)) {
-    info(`类型导出方式错误，只支持 ${chalk.red(exportTypeRequire.join('、'))} ${exportTypeRequire.length}种格式`)
-    process.exit()
+    info(`类型导出方式错误，只支持 ${chalk.red(exportTypeRequire.join('、'))} ${exportTypeRequire.length}种格式`, 'all', true)
     return false
   }
   return true
@@ -105,8 +104,7 @@ export const getContent: GetContentType = (dest) => {
     /** 自定义命名空间 */
     const namespaceContentArr = globalContent.match(namespaceReg)
     if (!namespaceContentArr) {
-      info(`${chalk.redBright(dest)} 文件读取出错，请检查文件！`)
-      process.exit()
+      info(`${chalk.redBright(dest)} 文件读取出错，请检查文件！`, 'all', true)
     }
     [res.content] = namespaceContentArr || ['']
     res.type = 'declare'
