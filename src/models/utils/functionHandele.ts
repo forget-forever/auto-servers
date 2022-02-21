@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-09 15:27:10
- * @LastEditTime: 2022-02-21 14:46:38
+ * @LastEditTime: 2022-02-21 17:33:18
  */
 import { getConfig } from "@/utils/config"
 import { readFileSync, writeFileSync } from "fs"
@@ -45,10 +45,12 @@ const createTplStr = (str = '', params: string) => '${' + `${params}.${str}` + '
 export const urlPreHandle = (url: string, params = 'params') => {
   const braketsReg = /\{(\w)+\}/g
   const colonReg = /(:)(\w)+/g
-  let res = ''
-  res = url.replace(braketsReg, (match) => {
+  let res = url
+  let tplStr = "'"
+  res = res.replace(braketsReg, (match) => {
     const item = match.match(/(?<=\{)((\w)*)(?=\})/g) || ['']
     if (item[0]) {
+      tplStr = '`'
       return createTplStr(item[0], params)
     }
     return match
@@ -56,11 +58,13 @@ export const urlPreHandle = (url: string, params = 'params') => {
   res = res.replace(colonReg, (match) => {
     const item = match.match(/(?<=:)(\w)+/g) || ['']
     if(item[0]) {
+      tplStr = '`'
       return createTplStr(item[0], params)
     }
     return match
   })
-  return res
+
+  return `${tplStr}${res}${tplStr}`
 }
 
 /**
@@ -72,10 +76,10 @@ export const urlPreHandle = (url: string, params = 'params') => {
 export const paramsPreHandle = (paramsType = '', dataType = '', params = 'params', data = 'data') => {
   let res = ''
   if (paramsType) {
-    res += `${params}: ${paramsType}, `
+    res += `${params}: ${paramsType},`
   }
   if (dataType) {
-    res += `${data}: ${dataType}`
+    res += ` ${data}: ${dataType}`
   }
   return res
 }

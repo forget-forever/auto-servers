@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-21 15:59:39
+ * @LastEditTime: 2022-02-21 17:05:07
  */
 module.exports = {
   // 项目id
@@ -37,13 +37,13 @@ module.exports = {
     const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
     return (
       `(${paramsHandle(paramsType, dataType)}) => 
-  request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
+  request${returnType? `<${returnType}>` : ''}(${urlHandle(url)}, {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
     )
   },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 类型的导出形式，分为 declare 和 export两种
-  exportType:  "declare",
+  exportType:  "export",
   /** 默认的接口分类 */
   defaultApisType: 'utils'
 }

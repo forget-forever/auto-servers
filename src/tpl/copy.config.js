@@ -3,7 +3,7 @@ module.exports = {
 
   token: "", /** 项目的token */
   
-  importModel: ["import request from '@/utils/request'"], /** 引入的model */
+  // importModel: ["import request from '@/utils/request'"], /** 引入的model */
 
   // importTypeModel: [], /** 类型文件中引入的model */
 
@@ -26,7 +26,7 @@ module.exports = {
   //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
   //   return (
   //     `(${paramsHandle(paramsType, dataType)}) => 
-  // request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
+  // request${returnType? `<${returnType}>` : ''}(${urlHandle(url)}, {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
   //   )
   // },
 
