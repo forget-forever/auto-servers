@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-02-17 12:52:51
+ * @LastEditTime: 2022-02-21 15:05:09
  */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -25,25 +25,23 @@ module.exports = {
   importTypeModel: undefined,
   /**
    * 生成的方法模版`
-   * @param {string} url 接口的url
-   * @param {string} paramsType query请求参数类型
-   * @param {string} dataType 请求体的参数类型
-   * @param {string} returnType 返回的结果类型
-   * @param {string} method 请求方式
-   * @param {import("@/models/create/detailType").ApiDetail<'obj'>} apiDetail 接口的详情
+   * @param {{
+   *  url: string, // 接口的url
+   *  paramsType: string, // query请求参数类型
+   *  dataType: string, // 请求体的参数类型
+   *  returnType: string, // 返回的结果类型
+   *  method: string, // 请求方式
+   *  paramsHandle: (paramsType = '', dataType = '', params = 'params', data = 'data') => string, // 参数的预处理
+   *  urlHandle: (url: string, params = 'params') => string, // 内置的路径预处理函数，处理路由传参
+   *  apiDetail: import("@/models/create/detailType").ApiDetail<'obj'> // 接口的详情
+   * }} api
    * @returns {string} 方法字符串
    */
-  serviceTemplate: (url, paramsType, dataType, returnType, method, apiDetail) => {
-    let params = ''
-    if (paramsType) {
-      params += `params: ${paramsType}, `
-    }
-    if (dataType) {
-      params += `data: ${dataType}`
-    }
+  serviceTemplate: (api) => {
+    const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, apiDetail} = api
     return (
-      `(${params}) => 
-  request<${returnType}>('${url}', {params, method: '${method}', ${dataType ? 'data': ''}})`
+      `(${paramsHandle(paramsType, dataType)}) => 
+  request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {params, method: '${method}', ${dataType ? 'data': ''}})`
     )
   },
   // 返回的参数解析类型的节点，默认是data节点开始解析

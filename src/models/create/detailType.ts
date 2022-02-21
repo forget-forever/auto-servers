@@ -54,7 +54,7 @@ export interface ApiDetail<T extends 'obj' | 'str'> {
 	title: string;
 	path: string;
 	project_id: number;
-	req_params: [];
+	req_params: Req_params[];
 	res_body_type: string;
 	uid: number;
 	add_time: number;
@@ -81,4 +81,10 @@ export interface Req_query {
 	name: string;
 	example: string;
 	desc: string;
+}
+
+export interface Req_params {
+	desc: string
+	name: string
+	_id: string
 }

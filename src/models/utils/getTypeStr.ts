@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-18 15:57:47
- * @LastEditTime: 2022-02-18 19:14:18
+ * @LastEditTime: 2022-02-21 10:38:25
  */
 import { compileType } from "@/utils"
 import { Req_query, SchemaBody } from "../create/detailType"
@@ -12,12 +12,12 @@ import { Req_query, SchemaBody } from "../create/detailType"
  * @returns 如果是空的类型会返回undefined， 否则就原样返回
  */
 const validateNullType = (str = '') => {
-  const interfaceNullReg = /interface(\s)+(\w)*(\s)+(\{)(\n)*(\})/g
-  const typeNullReg = /type(\s)+(\w)*(\s)*=(\s)*(\{)(\n)*(\})/g
+  const interfaceNullReg = /interface(\s)+(\w)*(\s)+(\{)[\n\s]*(\})/g
+  const typeNullReg = /type(\s)+(\w)*(\s)*=(\s)*(\{)[\n\s]*(\})/g
   if (interfaceNullReg.test(str) || typeNullReg.test(str)){
     return undefined
   } else {
-    return str.replace(/^\n*|\n*$/g, '')
+    return str.replace(/^\n*|\n*$/g, '').replace(/(\s)+(\{)[\n\s]*(\})/g, ' Record<string, string>')
   }
 }
 
@@ -54,7 +54,7 @@ const validateNullType = (str = '') => {
  * @param startRoot 开始节点
  * @param typeName 生成的类型名称
  */
-export const getTypeStr = async (schema: SchemaBody, name: string, startRoot: string, typeName: string) => {
+export const getTypeStr = async (schema: SchemaBody,typeName: string, name = '', startRoot = '') => {
   let typeStr: string | undefined = ''
   if (name === startRoot) {
     typeStr = await compileType({...schema, title: typeName}, typeName, {ignoreMinAndMaxItems: true,})

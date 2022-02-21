@@ -8,7 +8,7 @@ import config from "@/config";
 import { getYpiMsg } from "@/servers";
 import { ApiDetail } from "./detailType";
 import { OneListItem } from "./listType";
-import { createType, getDest, getFunctionName, pushFunction } from "../utils";
+import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle } from "../utils";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = {...data}
@@ -36,14 +36,16 @@ const run = async (api: OneListItem) => {
 
   pushFunction(
     getFunctionName(api),
-    serversTemplate(
-      apiDetail.path,
-      paramsTypeName,
-      dataTypeName,
-      resTypeName,
-      apiDetail.method,
+    serversTemplate({
+      url: apiDetail.path,
+      paramsType: paramsTypeName,
+      dataType: dataTypeName,
+      returnType: resTypeName,
+      method: apiDetail.method,
+      paramsHandle: paramsPreHandle,
+      urlHandle: urlPreHandle,
       apiDetail
-    ),
+    }),
     file, 
     api.title
   )

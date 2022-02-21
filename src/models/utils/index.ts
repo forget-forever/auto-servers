@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 15:39:50
- * @LastEditTime: 2022-02-17 17:30:21
+ * @LastEditTime: 2022-02-21 15:13:58
  */
 import config from "@/config"
 import { getConfig } from "@/utils/config"
@@ -24,12 +24,14 @@ export * from './typeHandle'
   const extendName = getConfig('extendName')
   const path = resolve(config.rootDir, `tmp/${api.pathType}`)
   const file = resolve(path, `index${extendName}`)
-  const typeFile = resolve(path, `type.d.ts`)
+  const typeFile = getConfig('tsType') ? resolve(path, `type.d.ts`) : ''
 
   if (!existsSync(path)) {
     mkdirSync(path, {recursive: true})
     writeFileSync(file, getFunctionFileTpl())
-    writeFileSync(typeFile, newTypeFile())
+    if (typeFile) {
+      writeFileSync(typeFile, newTypeFile())
+    }
   }
   return {file, path, typeFile}
 }

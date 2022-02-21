@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-18 19:06:49
+ * @LastEditTime: 2022-02-21 14:49:55
  */
 module.exports = {
   // 项目id
@@ -19,33 +19,30 @@ module.exports = {
   /** 引入的model */
   importModel: ["import request from '@/utils/request'"],
   /**
-   * 生成的方法模版，默认是：(paramsType, ReturnType, option, url) => `(params: ${paramsType}) => request<${ReturnType}>(${url}, ${option})`
-   * @param {*} url 接口的url
-   * @param {*} paramsType query请求参数类型
-   * @param {*} dataType 请求体的参数类型
-   * @param {*} ReturnType 返回的结果类型
-   * @param {*} method 请求方式
-   * @param {*} apiDetail 接口的详情
-   * @returns 
+   * 生成的方法模版`
+   * @param {{
+   *  url: string, // 接口的url
+   *  paramsType: string, // query请求参数类型
+   *  dataType: string, // 请求体的参数类型
+   *  returnType: string, // 返回的结果类型
+   *  method: string, // 请求方式
+   *  paramsHandle: (paramsType = '', dataType = '', params = 'params', data = 'data') => string, // 参数的预处理
+   *  urlHandle: (url: string, params = 'params') => string, // 内置的路径预处理函数，处理路由传参
+   *  apiDetail: import("@/models/create/detailType").ApiDetail<'obj'> // 接口的详情
+   * }} config
+   * @returns {string} 方法字符串
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  serviceTemplate: (url, paramsType, dataType, returnType, method, apiDetail) => {
-    let params = ''
-    if (paramsType) {
-      params += `params: ${paramsType}, `
-    }
-    if (dataType) {
-      params += `data: ${dataType}`
-    }
+  serviceTemplate: (config) => {
+    const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, apiDetail} = config
     return (
-      `(${params}) => 
-  request${returnType? `<${returnType}>` : ''}('${url}', {${paramsType ? 'params,' : ''} method: '${method}', ${dataType ? 'data': ''}})`
+      `(${paramsHandle(paramsType, dataType)}) => 
+  request${returnType? `<${returnType}>` : ''}('${urlHandle(url)}', {params, method: '${method}', ${dataType ? 'data': ''}})`
     )
   },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 类型的导出形式，分为 declare 和 export两种
-  exportType:  "declare",
+  exportType:  "export",
   /** 默认的接口分类 */
   defaultApisType: 'utils'
 }

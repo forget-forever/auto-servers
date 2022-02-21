@@ -15,6 +15,10 @@ import { pushType } from "./typeFileHandle";
  * @returns 
  */
 export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
+  // 目标路径为空，说明不要创建类型
+  if (!dest) {
+    return {paramsTypeName: '', dataTypeName: '', resTypeName: ''}
+  }
   const name = getFunctionName(api)
 
   let paramsTypeName = ''
@@ -24,7 +28,7 @@ export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
   
   // 返回数据的类型
   if (api.res_body) {
-    const type = await getTypeStr(api.res_body, 'root', 'data', upperFirst(`${name}Res`))
+    const type = await getTypeStr(api.res_body, upperFirst(`${name}Res`), 'root', 'data')
     if (type) {
       typeArr.push(type)
       resTypeName = upperFirst(`${name}Res`)
@@ -33,7 +37,7 @@ export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
   
   // 请求体类型
   if (api.req_body_other) {
-    const type = await getTypeStr(api.req_body_other, '', '', upperFirst(`${name}Data`))
+    const type = await getTypeStr(api.req_body_other, upperFirst(`${name}Data`))
     if (type) {
       typeArr.push(type)
       dataTypeName = upperFirst(`${name}Data`)
@@ -42,7 +46,10 @@ export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
 
   // 请求的query类型
   if (api.req_query && api.req_query.length) {
-    const type = await getTypeStr(createQuerySchema(api.req_query), '', '', upperFirst(`${name}Params`))
+    const type = await getTypeStr(
+      createQuerySchema((api.req_query || []).concat((api.req_params || []).map((item) => ({...item, example: 'String', required: '1'})))),
+      upperFirst(`${name}Params`)
+    )
     if (type) {
       typeArr.push(type)
       paramsTypeName = upperFirst(`${name}Params`)
