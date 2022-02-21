@@ -31,9 +31,10 @@ const run = async (api: OneListItem) => {
 
   const {file, typeFile} = getDest(api)
 
-  /** 目前使用这个方法，现在还是本地的，之后yapi更新接口，使用线上的接口获取类型 */
+  /** 生成类型文件 */
   const { dataTypeName, paramsTypeName, resTypeName } = await createType(apiDetail, typeFile)
 
+  /** 生成方法文件 */
   pushFunction(
     getFunctionName(api),
     serversTemplate({

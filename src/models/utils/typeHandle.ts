@@ -12,6 +12,7 @@ import { pushType } from "./typeFileHandle";
 /**
  * 生成类型
  * @param api api的详细数据
+ * @param dest 目标文件，为空时会干会空的类型名
  * @returns 
  */
 export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
