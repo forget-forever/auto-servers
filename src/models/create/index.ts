@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-10 20:32:24
- * @LastEditTime: 2022-02-17 12:41:17
+ * @LastEditTime: 2022-02-22 16:37:13
  */
 import { OneListItem } from "./listType"
 import inquirer from "inquirer"
@@ -24,7 +24,7 @@ const createTasks = async (apis: OneListItem[]) => {
     loadingEffect: apis.length
   })
   apis.forEach((item) => {
-    progressLog.add('生成方法:', item.path, {color: 'green'})
+    progressLog.add(`生成 ${item.title || ''} 方法:`, item.path, {color: 'green'})
   })
   progressLog.start()
   for(let i = 0; i < apis.length; i++) {

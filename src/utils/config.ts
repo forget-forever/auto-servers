@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-06 21:24:29
- * @LastEditTime: 2022-02-22 14:03:49
+ * @LastEditTime: 2022-02-22 16:56:58
  */
 import { resolve } from "path";
 import type asc from '@/tpl/asconfig'
@@ -51,7 +51,8 @@ export const getUserConfig = () => {
 export const getConfig = <K extends keyof AscType>(key: K): AscType[K] => {
   if (!config.requiredConfig.includes(key)) {
     const res = getUserConfig()[key]
-    if (res !== undefined && res !== null){
+    const nullVal = [undefined, null, ''] as unknown[]
+    if (!nullVal.includes(res)){
       return res
     }
     return getDefaultConfig()[key]
