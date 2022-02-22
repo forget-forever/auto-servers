@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-18 15:42:54
+ * @LastEditTime: 2022-02-22 14:06:20
  */
 import { getConfig } from "@/utils/config";
 import config from "@/config";
@@ -12,10 +12,10 @@ import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, param
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = {...data}
-  if (typeof data.res_body === 'string') {
+  if (data.res_body && typeof data.res_body === 'string') {
     res.res_body = JSON.parse(data.res_body)
   }
-  if (typeof data.req_body_other === 'string') {
+  if (data.req_body_other && typeof data.req_body_other === 'string') {
     res.req_body_other = JSON.parse(data.req_body_other)
   }
   return res as ApiDetail<'obj'>

@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-09 15:27:10
- * @LastEditTime: 2022-02-21 17:33:18
+ * @LastEditTime: 2022-02-21 18:54:46
  */
 import { getConfig } from "@/utils/config"
 import { readFileSync, writeFileSync } from "fs"
@@ -11,7 +11,7 @@ export const getFunctionFileTpl = (namespace = getConfig('typeNamespace')) => {
   const configModel = getConfig('importModel').map((item) => item.replace(/;/g, ''))
   const extendName = getConfig('extendName')
   if (extendName.includes('ts') && getExportType() === 'export') {
-    configModel.push(`import * as ${namespace} from './type'`)
+    configModel.push(`import type * as ${namespace} from './type'`)
   }
   if (configModel.length) {
     return configModel.join(';\n') + ';\n\n'

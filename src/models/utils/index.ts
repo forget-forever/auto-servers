@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 15:39:50
- * @LastEditTime: 2022-02-21 15:13:58
+ * @LastEditTime: 2022-02-22 14:30:59
  */
 import config from "@/config"
 import { getConfig } from "@/utils/config"
@@ -37,6 +37,8 @@ export * from './typeHandle'
 }
 
 export const getFunctionName = (api: OneListItem | ApiDetail<'str' | 'obj'>) => {
-  const pathArr = api.path.split('/')
+  const braketsReg = /\/(\w)*\{(\w)+\}/g
+  const colonReg = /\/(\w)*(:)(\w)+/g
+  const pathArr = api.path.replace(braketsReg, '').replace(colonReg, '').split('/')
   return camelCase(last(pathArr)) || 'requestName'
 }

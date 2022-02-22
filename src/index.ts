@@ -5,7 +5,7 @@ import { program } from "commander";
 import { resolve } from "path";
 import create from "./models/create";
 import init from "./models/init";
-import { info, } from "./utils";
+import { info } from "./utils";
 import { getParams, setParams } from "./utils/params";
 
 program.version(require("../package.json").version, '-v --version').usage('<command> <command> [name]');

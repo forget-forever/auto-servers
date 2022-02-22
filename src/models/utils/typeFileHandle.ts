@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-21 16:19:01
+ * @LastEditTime: 2022-02-22 13:34:45
  */
 import config from "@/config"
 import { info } from "@/utils"
@@ -45,11 +45,19 @@ export const newTypeFile = (
   const val = initVal.replace(/^\n*|\n*$/g, '')
   if (type === 'declare') {
     const beautify = require('js-beautify').js
-    return beautify(`${tpl.replace(/^\n*|\n*$/g, '')}
+    const template = tpl.replace(/^[\n\s]*|[\n\s]*$/g, '')
+    if (template) {
+      return beautify(`${template}
         declare global {
-        declare namespace ${namespace} {
-          ${val}
-        }
+          declare namespace ${namespace} {
+            ${val}
+          }
+        }`,
+        { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
+      ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
+    }
+    return beautify(`declare namespace ${namespace} {
+        ${val}
       }`,
       { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
     ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
@@ -87,14 +95,14 @@ export const getContent: GetContentType = (dest) => {
   const content = getTypeFile(dest);
   const res = { } as ReturnType<GetContentType>
   /** 全局命名空间的正则 */
-  const globalReg = /(?<=(declare global)( )*{)(.*)(?=})/s
+  // const globalReg = /(?<=(declare global)( )*{)(.*)(?=})/s
+  /** 命名空间 */
   const namespace = getNamespace(content)
-  if (globalReg.test(content)) {
+   /** 获取自定义的命名空间的正则 */
+   const namespaceReg = new RegExp(`(?<=declare namespace ${namespace}( )*{)(.*)(?=})`, 's' )
+  if (namespaceReg.test(content)) {
     /** 全局命名空间 */
-    const [globalContent] = content.match(globalReg) || ['']
-    /** 命名空间 */
-    /** 获取自定义的命名空间的正则 */
-    const namespaceReg = new RegExp(`(?<=declare namespace ${namespace}( )*{)(.*)(?=})`, 's' )
+    // const [globalContent] = content.match(globalReg) || ['']
     // 识别该文件是declare形式的导出形式
     const baseContentReg = /((.*)(?=(declare global)( )*{))/s
     
@@ -102,7 +110,7 @@ export const getContent: GetContentType = (dest) => {
     const [baseContent] = content.match(baseContentReg) || ['']
 
     /** 自定义命名空间 */
-    const namespaceContentArr = globalContent.match(namespaceReg)
+    const namespaceContentArr = content.match(namespaceReg)
     if (!namespaceContentArr) {
       info(`${chalk.redBright(dest)} 文件读取出错，请检查文件！`, 'all', true)
     }
