@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// require('module-alias/register')
+require('module-alias/register')
+require('tsconfig-paths/register')
 import chalk from "chalk";
 import { program } from "commander";
 import { resolve } from "path";
@@ -7,12 +8,6 @@ import create from "./models/create";
 import init from "./models/init";
 import { info } from "./utils";
 import { getParams, setParams } from "./utils/params";
-import { addAliases, reset } from 'module-alias'
-reset()
-
-addAliases({
-  '@': __dirname,
-})
 
 program.version(require("../package.json").version, '-v --version').usage('<command> <command> [name]');
 
