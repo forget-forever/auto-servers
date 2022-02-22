@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// require('module-alias/register')
 import chalk from "chalk";
 import { program } from "commander";
 import { resolve } from "path";
@@ -6,12 +7,12 @@ import create from "./models/create";
 import init from "./models/init";
 import { info } from "./utils";
 import { getParams, setParams } from "./utils/params";
-import { addAlias } from 'module-alias'
-import 'module-alias/register'
+import { addAliases, reset } from 'module-alias'
+reset()
 
-addAlias('@', resolve(__dirname))
-
-
+addAliases({
+  '@': __dirname,
+})
 
 program.version(require("../package.json").version, '-v --version').usage('<command> <command> [name]');
 
