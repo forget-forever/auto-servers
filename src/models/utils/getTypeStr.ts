@@ -50,11 +50,11 @@ const validateNullType = (str = '') => {
 /**
  * 得到类型字符串, 目前使用这个方法，现在还是本地的，之后yapi更新接口，使用线上的接口获取类型 date: 2022-2-21
  * @param schema 类型的schema对象
+ * @param typeName 生成的类型名称
  * @param name 节点名称，如果要直接生成那就 节点名称 和 开始节点 同名
  * @param startRoot 开始节点
- * @param typeName 生成的类型名称
  */
-export const getTypeStr = async (schema: SchemaBody,typeName: string, name = '', startRoot = '') => {
+export const getTypeStr = async (schema: SchemaBody, typeName: string, name = '', startRoot = '') => {
   let typeStr: string | undefined = ''
   if (name === startRoot) {
     typeStr = await compileType({...schema, title: typeName}, typeName, {ignoreMinAndMaxItems: true,})
