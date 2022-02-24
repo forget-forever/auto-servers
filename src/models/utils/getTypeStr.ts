@@ -1,10 +1,10 @@
 /*
  * @Author: zml
  * @Date: 2022-02-18 15:57:47
- * @LastEditTime: 2022-02-24 14:21:05
+ * @LastEditTime: 2022-02-24 16:14:01
  */
 import { compileType, deleteNullStr } from "@/utils"
-import { Req_query, SchemaBody } from "../create/detailType"
+import { Req_query, SchemaBody } from "../type/detailType"
 
 /**
  * 校验是不是空类型

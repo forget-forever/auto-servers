@@ -5,7 +5,7 @@
  */
 import { upperFirst } from "lodash";
 import { getFunctionName } from ".";
-import { ApiDetail } from "../create/detailType";
+import { ApiDetail } from "../type/detailType";
 import { createQuerySchema, getTypeStr } from "./getTypeStr";
 import { pushType } from "./typeFileHandle";
 

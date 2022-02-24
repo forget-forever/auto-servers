@@ -6,8 +6,8 @@
 import { getConfig } from "@/utils/config";
 import config from "@/config";
 import { getYpiMsg } from "@/servers";
-import { ApiDetail } from "./detailType";
-import { OneListItem } from "./listType";
+import { ApiDetail } from "../type/detailType";
+import { OneListItem } from "../type/listType";
 import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle, requestDataPreHandle } from "../utils";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {

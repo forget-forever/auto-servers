@@ -9,7 +9,7 @@ import { objMap } from "@/utils"
 import { getConfig } from "@/utils/config"
 import { getParams } from "@/utils/params"
 import { camelCase } from "lodash"
-import { ApiListItem, OneListItem } from "./listType"
+import { ApiListItem, OneListItem } from "../type/listType"
 
 /** 从yapi远程获取接口列表 */
 export const getApis = async () => {

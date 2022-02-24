@@ -3,7 +3,7 @@
  * @Date: 2022-01-10 20:32:24
  * @LastEditTime: 2022-02-22 16:37:13
  */
-import { OneListItem } from "./listType"
+import { OneListItem } from "../type/listType"
 import inquirer from "inquirer"
 import { info, ProgressLogs } from "@/utils"
 import chalk from "chalk"
