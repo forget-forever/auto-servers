@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-22 14:06:20
+ * @LastEditTime: 2022-02-24 15:15:30
  */
 import { getConfig } from "@/utils/config";
 import config from "@/config";
@@ -29,10 +29,10 @@ const run = async (api: OneListItem) => {
 
   const serversTemplate = getConfig('serviceTemplate')
 
-  const {file, typeFile} = getDest(api)
+  const {file, typeFile, namespace} = getDest(api)
 
   /** 生成类型文件 */
-  const { dataTypeName, paramsTypeName, resTypeName } = await createType(apiDetail, typeFile)
+  const { dataTypeName, paramsTypeName, resTypeName } = await createType(apiDetail, typeFile, namespace)
 
   /** 生成方法文件 */
   pushFunction(

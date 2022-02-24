@@ -1,16 +1,21 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-22 13:34:45
+ * @LastEditTime: 2022-02-24 15:55:18
  */
 import config from "@/config"
-import { info } from "@/utils"
+import { deleteNullStr, info } from "@/utils"
 import { getConfig } from "@/utils/config"
 import chalk from "chalk"
 import { readFileSync, writeFileSync } from "fs"
 
 type ExportType = typeof config.exportTypeRequire[number]
 
+/**
+ * 校验导出方式是否合法
+ * @param type 导出方式
+ * @returns 
+ */
 const validatorExportType = (type: string): type is ExportType => {
   const { exportTypeRequire } = config
   if (!exportTypeRequire.includes(type as ExportType)) {
@@ -19,7 +24,10 @@ const validatorExportType = (type: string): type is ExportType => {
   }
   return true
 }
-
+/**
+ * 获取导出方式，会检验，如果不合法会结束进程
+ * @returns 
+ */
 export const getExportType = (): ExportType => {
   const exportType = getConfig('exportType')
   if (validatorExportType(exportType)) {
@@ -36,18 +44,26 @@ const getTypeTpl = () => {
   return ''
 }
 
+/**
+ * 生成类型文件的字符串
+ * @param initVal 类型的内容
+ * @param type 导出方式
+ * @param namespace 命名空间
+ * @param tpl 基础模版
+ * @returns 
+ */
 export const newTypeFile = (
   initVal = '',
   type: ExportType = getExportType(),
   namespace: string = getConfig('typeNamespace'),
   tpl = getTypeTpl()
 ) => {
-  const val = initVal.replace(/^\n*|\n*$/g, '')
+  const val = deleteNullStr(initVal)
+  const template = deleteNullStr(tpl)
   if (type === 'declare') {
     const beautify = require('js-beautify').js
-    const template = tpl.replace(/^[\n\s]*|[\n\s]*$/g, '')
     if (template) {
-      return beautify(`${template}
+      return beautify(`${template}\n
         declare global {
           declare namespace ${namespace} {
             ${val}
@@ -62,20 +78,14 @@ export const newTypeFile = (
       { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
     ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
   }
-  return `${tpl.replace(/^\n*|\n*$/g, '')}${tpl ? '\n\n' : ''}${val}`
+  return `${template}${template ? '\n\n' : ''}${val}`
 }
 
 const getTypeFile = (dest: string) => {
   return readFileSync(dest, 'utf-8');
 }
 
-const getNamespace = (content: string) => {
-  const reg1 = /(?<=(declare namespace ))(.*)(?={)/
-  const reg2 = /(?<=(import(\s)+\*(\s)+as ))(.*)(?=((\s)+from))/g
-  return (content.match(reg1) || content.match(reg2) || [getConfig('typeNamespace')])[0].trim()
-}
-
-type GetContentType =  (dest: string) => {
+type GetContentType =  (dest: string, namespace: string) => {
   /** 类型的内容 */
   content: string;
   /** 写入内容 */
@@ -89,20 +99,21 @@ type GetContentType =  (dest: string) => {
 /**
  * 获取类型文件的内容
  * @param dest 目标文件
+ * @param namespace 命名空间
  * @returns 
  */
-export const getContent: GetContentType = (dest) => {
+export const getContent: GetContentType = (dest, namespace) => {
   const content = getTypeFile(dest);
   const res = { } as ReturnType<GetContentType>
   /** 全局命名空间的正则 */
-  // const globalReg = /(?<=(declare global)( )*{)(.*)(?=})/s
-  /** 命名空间 */
-  const namespace = getNamespace(content)
+  const globalReg = /(?<=(declare global)( )*{)(.*)(?=})/s
    /** 获取自定义的命名空间的正则 */
-   const namespaceReg = new RegExp(`(?<=declare namespace ${namespace}( )*{)(.*)(?=})`, 's' )
+  const namespaceReg = new RegExp(`(?<=declare( )+namespace( )+${namespace}( )*{)(.*)(?=})`, 's' )
   if (namespaceReg.test(content)) {
+    /** declare的导出形式 */
+
     /** 全局命名空间 */
-    // const [globalContent] = content.match(globalReg) || ['']
+    const [globalContent] = content.match(globalReg) || ['']
     // 识别该文件是declare形式的导出形式
     const baseContentReg = /((.*)(?=(declare global)( )*{))/s
     
@@ -110,7 +121,7 @@ export const getContent: GetContentType = (dest) => {
     const [baseContent] = content.match(baseContentReg) || ['']
 
     /** 自定义命名空间 */
-    const namespaceContentArr = content.match(namespaceReg)
+    const namespaceContentArr = (globalContent || content).match(namespaceReg)
     if (!namespaceContentArr) {
       info(`${chalk.redBright(dest)} 文件读取出错，请检查文件！`, 'all', true)
     }
@@ -121,6 +132,7 @@ export const getContent: GetContentType = (dest) => {
     }
     res.namespace = namespace
   } else {
+    /** export的导出形式 */
     res.type = 'export'
     res.content = content
     res.setContent = (newContent) => {
@@ -131,8 +143,8 @@ export const getContent: GetContentType = (dest) => {
   return res
 }
 
-export const pushType = (typeArr: string[], dest: string) => {
-  const { content, setContent, type, namespace } = getContent(dest)
+export const pushType = (typeArr: string[], dest: string, namespace: string) => {
+  const { content, setContent, type } = getContent(dest, namespace)
   if (type === 'export') {
     const typeStr = typeArr.map((ele) => `${type} ${ele}`).join('\n\n')
     setContent(`${content}\n${typeStr}`)

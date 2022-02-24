@@ -15,7 +15,7 @@ import { pushType } from "./typeFileHandle";
  * @param dest 目标文件，为空时会干会空的类型名
  * @returns 
  */
-export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
+export const createType = async (api: ApiDetail<'obj'>, dest: string, namespace: string) => {
   // 目标路径为空，说明不要创建类型
   if (!dest) {
     return {paramsTypeName: '', dataTypeName: '', resTypeName: ''}
@@ -57,7 +57,7 @@ export const createType = async (api: ApiDetail<'obj'>, dest: string) => {
     }
   }
 
-  const { namespace } = pushType(typeArr, dest)
+  pushType(typeArr, dest, namespace)
 
   return {
     paramsTypeName: paramsTypeName ? `${namespace}.${paramsTypeName}` : '',

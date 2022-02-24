@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-22 13:25:13
+ * @LastEditTime: 2022-02-24 15:59:15
  */
 module.exports = {
   // 项目id
@@ -18,6 +18,7 @@ module.exports = {
   outPath: "apis",
   /** 引入的model */
   importModel: ["import request from '@/utils/request'"],
+  importTypeModel: ["import enum from '@/utils/enum'"],
   /**
    * 生成的方法模版`
    * @param {{

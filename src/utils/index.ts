@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 13:05:20
- * @LastEditTime: 2022-02-22 16:06:47
+ * @LastEditTime: 2022-02-24 14:19:17
  */
 import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync, unlinkSync } from "fs";
 import { compile } from "json-schema-to-typescript";
@@ -63,6 +63,13 @@ export const httpBuilderUrl = (url: string, data: Record<string, string>) => {
 }
 
 /**
+ * 去除字符串开头的空格和换行
+ * @param str 
+ * @returns 
+ */
+ export const deleteNullStr = (str: string) => str.replace(/^[\n\s]*|[\n\s]*$/g, '')
+
+/**
  * 编译类型的自己封装的方法，去除了 [k: string]: unknown;额外添加的类型
  * @param args compile的参数
  * @returns 
@@ -70,8 +77,7 @@ export const httpBuilderUrl = (url: string, data: Record<string, string>) => {
 export const compileType: typeof compile = async (...args) => {
   try {
     const typeRes = await compile(...args)
-    // .replace(/^(.*)(export )/s, '')
-    return typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '').replace(/^(.*)(export )/s, '').replace(/^\n*|\n*$/g, '')
+    return deleteNullStr(typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '').replace(/^(.*)(export )/s, ''))
   } catch (error) {
     return Promise.reject(error)
   }

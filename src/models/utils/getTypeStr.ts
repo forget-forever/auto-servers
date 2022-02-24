@@ -1,9 +1,9 @@
 /*
  * @Author: zml
  * @Date: 2022-02-18 15:57:47
- * @LastEditTime: 2022-02-21 10:38:25
+ * @LastEditTime: 2022-02-24 14:21:05
  */
-import { compileType } from "@/utils"
+import { compileType, deleteNullStr } from "@/utils"
 import { Req_query, SchemaBody } from "../create/detailType"
 
 /**
@@ -17,7 +17,7 @@ const validateNullType = (str = '') => {
   if (interfaceNullReg.test(str) || typeNullReg.test(str)){
     return undefined
   } else {
-    return str.replace(/^\n*|\n*$/g, '').replace(/(\s)+(\{)[\n\s]*(\})/g, ' Record<string, string>')
+    return deleteNullStr(str).replace(/(\s)+(\{)[\n\s]*(\})/g, ' Record<string, string>')
   }
 }
 
