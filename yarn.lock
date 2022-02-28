@@ -1488,6 +1488,11 @@ jsonc-parser@^2.1.0:
   resolved "http://npm.sfjswl.com/jsonc-parser/-/jsonc-parser-2.3.1.tgz"
   integrity sha512-H8jvkz1O50L3dMZCsLqiuB2tA7muqbSg1AtGEkN0leAqGjsUzDJir3Zwr02BhqdcITPg3ei3mZ+HjMocAknhhg==
 
+jsonc-parser@^3.0.0:
+  version "3.0.0"
+  resolved "http://npm.sfjswl.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
+  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
+
 jsprim@^1.2.2:
   version "1.4.2"
   resolved "http://npm.sfjswl.com/jsprim/-/jsprim-1.4.2.tgz"

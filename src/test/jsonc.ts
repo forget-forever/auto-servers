@@ -1,10 +1,9 @@
-import jsonc2type from "../utils/jsonc2type"
-// import typeofJsonc from "typeof-jsonc"
+import jsonc2type from "@/utils/jsonc2type"
 
 /*
  * @Author: zml
  * @Date: 2022-02-28 11:04:06
- * @LastEditTime: 2022-02-28 14:02:10
+ * @LastEditTime: 2022-02-28 16:04:20
  */
 module.exports = () => {
   const str = `{

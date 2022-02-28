@@ -1,19 +1,27 @@
 /*
  * @Author: zml
  * @Date: 2022-02-25 18:57:05
- * @LastEditTime: 2022-02-28 15:37:21
+ * @LastEditTime: 2022-02-28 17:47:06
  */
 import { upperFirst } from "lodash"
 import typeofJsonc from "typeof-jsonc"
+import { deleteNullStr } from "."
 
 const basicType = ['string', 'number', 'boolean', "", 'any', 'unknown', 'never', 'object', 'Object', 'undefined', 'null',]
 
 const isArrReg = /\w+\[\]$/
 
-const splitType = (str: string, typeName: string) => {
-  const startReg = new RegExp(`(?<=interface( )+${typeName.trim()}( )+)(.[\\s\\S]*?)(?=.*(((export)|(declare))?( )+interface)|$)`, 'g')
+const splitType = (str: string, typeName: string): string => {
+  // const interfaceReg = new RegExp(`(?<=interface( )+${typeName.trim()}( )+)(.[\\s\\S]*?)(?=.*(((export)|(declare))?( )+interface)|$)`, 'g')
+  // const typeReg = new RegExp(`(?<=declare( )+type( )+${typeName.trim()}( )+=)(.[\\s\\S]*?)(?=.)`)
+  // console.log(typeName)
+  const startReg = new RegExp(`(?<=(interface( )+${typeName.trim()}( )+)|(type( )+${typeName.trim()}( )*=( )*))(.[\\s\\S]*?)(?=(export)|(declare)|$)`, 'g')
   const [res] = str.match(startReg) || ['']
-  return res.replace(/^[\n\s]*|[\n\s]*$/g, '')
+  const resVal = deleteNullStr(res)
+  if (/\w+;?$/.test(resVal)) {
+    return splitType(str, resVal.replace(/;/g, ''))
+  }
+  return resVal
 }
 
 type IOptions = {
@@ -44,14 +52,18 @@ const parseType = (parseStr: string, typeStr: string): TypeParseStr => {
       }
       return `${parseType(splitType(typeStr, ele), typeStr)}${suffix}`
     }).join(' | ')
-  })
+  }).replace(/;$/, '')
 }
 
 const jsonc2type = (jsonc: string, options: IOptions) => {
   const { name, startNode } = options
   const type = typeofJsonc(jsonc, name, { addExport: false, singleLineJsDocComments: true })
+  const typeStr = parseType(splitType(type, upperFirst(startNode)), type)
   // const strtReg = new RegExp(//)
-  return `type ${name} = ${parseType(splitType(type, upperFirst(startNode)), type)};`
+  if (!typeStr) {
+    return ''
+  }
+  return `type ${name} = ${typeStr};`
 }
 
 export default jsonc2type
