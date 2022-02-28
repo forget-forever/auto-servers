@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-25 18:57:05
- * @LastEditTime: 2022-02-28 17:47:06
+ * @LastEditTime: 2022-02-28 20:21:01
  */
 import { upperFirst } from "lodash"
 import typeofJsonc from "typeof-jsonc"
@@ -18,7 +18,7 @@ const splitType = (str: string, typeName: string): string => {
   const startReg = new RegExp(`(?<=(interface( )+${typeName.trim()}( )+)|(type( )+${typeName.trim()}( )*=( )*))(.[\\s\\S]*?)(?=(export)|(declare)|$)`, 'g')
   const [res] = str.match(startReg) || ['']
   const resVal = deleteNullStr(res)
-  if (/\w+;?$/.test(resVal)) {
+  if (/\w+;?$/.test(resVal) && !basicType.includes(resVal)) {
     return splitType(str, resVal.replace(/;/g, ''))
   }
   return resVal
