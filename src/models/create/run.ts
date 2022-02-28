@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 18:16:04
- * @LastEditTime: 2022-02-24 15:15:30
+ * @LastEditTime: 2022-02-25 19:01:50
  */
 import { getConfig } from "@/utils/config";
 import config from "@/config";
@@ -11,14 +11,14 @@ import { OneListItem } from "../type/listType";
 import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle, requestDataPreHandle } from "../utils";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
-  const res = {...data}
-  if (data.res_body && typeof data.res_body === 'string') {
-    res.res_body = JSON.parse(data.res_body)
+  const res = { ...data } as unknown as ApiDetail<'obj'>
+  if (data.res_body && typeof data.res_body === 'string' && data.res_body_is_json_schema) {
+    res.res_body_obj = JSON.parse(data.res_body)
   }
-  if (data.req_body_other && typeof data.req_body_other === 'string') {
-    res.req_body_other = JSON.parse(data.req_body_other)
+  if (data.req_body_other && typeof data.req_body_other === 'string' && data.req_body_is_json_schema) {
+    res.req_body_obj = JSON.parse(data.req_body_other)
   }
-  return res as ApiDetail<'obj'>
+  return res 
 }
 
 const run = async (api: OneListItem) => {

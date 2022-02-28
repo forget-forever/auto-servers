@@ -77,7 +77,7 @@ export const httpBuilderUrl = (url: string, data: Record<string, string>) => {
 export const compileType: typeof compile = async (...args) => {
   try {
     const typeRes = await compile(...args)
-    return deleteNullStr(typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '').replace(/^(.*)(export )/s, ''))
+    return deleteNullStr(typeRes.replace(/(\s)*(\n)*(\s)*(\[k: string\]: unknown;)/g, '').replace(/^(.*)(export(\s)+)/s, ''))
   } catch (error) {
     return Promise.reject(error)
   }

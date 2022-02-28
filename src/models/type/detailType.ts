@@ -61,12 +61,14 @@ export interface ApiDetail<T extends 'obj' | 'str'> {
 	up_time: number;
 	req_query?: Req_query[];
 	req_headers: HeaderItem[];
-	req_body_other?: T extends 'obj' ? SchemaBody : string | SchemaBody;
+	req_body_other?: string;
+	req_body_obj:  T extends 'obj' ? SchemaBody : undefined;
 	req_body_form: [];
 	__v: number;
 	desc: string;
 	markdown: string;
-	res_body?: T extends 'obj' ? SchemaBody : string | SchemaBody;
+	res_body?: string;
+	res_body_obj:  T extends 'obj' ? SchemaBody : undefined;
 	username: string;
 }
 

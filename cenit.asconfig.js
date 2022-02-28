@@ -1,24 +1,13 @@
 /*
  * @Author: zml
- * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-02-24 19:57:05
+ * @Date: 2022-02-24 19:57:23
+ * @LastEditTime: 2022-02-24 19:59:20
  */
 module.exports = {
-  // 项目id
-  projectId: 132,
-  // yapi的mock地址，写上域名就够了，例如：http://yapi.sfjswl.com
-  mockUrl: "http://yapi.sfjswl.com",
-  // 项目token
-  token: "afb8d3ceb74453d513f73b451b1f404dda763479e18349ffb1bb6e9373ce9695",
-  // 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类
-  collections: {
-    test: ["3.2"]
-  },
-  /** 生成请求的目录 */
-  outPath: "apis",
-  /** 引入的model */
-  importModel: ["import request from '@/utils/request'"],
-  importTypeModel: ["import enum from '@/utils/enum'"],
+  projectId: "52",
+  token: "b795f1bd91257f3a20fbca40da378b6ca1d441cbf84ddd71649c57a5d2bca4d0", /** 项目的token */
+  importModel: ["import { Request } from '@/lib/request/request';"], /** 引入的model */
+  // importTypeModel: [], /** 类型文件中引入的model */
   /**
    * 生成的方法模版`
    * @param {{
@@ -36,15 +25,20 @@ module.exports = {
    */
   serviceTemplate: (api) => {
     const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
+  //   return (
+  //     `(${paramsHandle(paramsType, dataType)}) => 
+  // request${returnType? `<${returnType}>` : ''}(${urlHandle(url)}, {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
+  //   )
     return (
       `(${paramsHandle(paramsType, dataType)}) => 
-  request${returnType? `<${returnType}>` : ''}(${urlHandle(url)}, {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
+  Request${returnType? `<${returnType}>` : ''}(
+    {
+      url: ${urlHandle(url)},
+      method: '${method}',
+    },
+    {${paramsType ? ' ...params,' : ''}${dataType ? ' ...data' : ''} },
+  );`
     )
   },
-  // 返回的参数解析类型的节点，默认是data节点开始解析
-  typeRootNode: "data",
-  // 类型的导出形式，分为 declare 和 export两种
-  exportType:  "declare",
-  /** 默认的接口分类 */
-  defaultApisType: 'utils'
+  outPath: "serversTest", /** 生成请求的目录 */
 }

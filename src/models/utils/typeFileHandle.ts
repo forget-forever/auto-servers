@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-24 15:55:18
+ * @LastEditTime: 2022-02-24 17:39:55
  */
 import config from "@/config"
 import { deleteNullStr, info } from "@/utils"
@@ -68,17 +68,17 @@ export const newTypeFile = (
           declare namespace ${namespace} {
             ${val}
           }
-        }`,
+        }\n`,
         { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
       ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
     }
     return beautify(`declare namespace ${namespace} {
         ${val}
-      }`,
+      }\n`,
       { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
     ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
   }
-  return `${template}${template ? '\n\n' : ''}${val}`
+  return `${template}${template ? '\n\n' : ''}${val}\n`
 }
 
 const getTypeFile = (dest: string) => {
@@ -146,7 +146,7 @@ export const getContent: GetContentType = (dest, namespace) => {
 export const pushType = (typeArr: string[], dest: string, namespace: string) => {
   const { content, setContent, type } = getContent(dest, namespace)
   if (type === 'export') {
-    const typeStr = typeArr.map((ele) => `${type} ${ele}`).join('\n\n')
+    const typeStr = typeArr.filter((item) => !!item).map((ele) => `${type} ${ele}`).join('\n\n')
     setContent(`${content}\n${typeStr}`)
   } else {
     setContent(`${content}\n${typeArr.join('\n')}`)
