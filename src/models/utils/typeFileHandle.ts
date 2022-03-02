@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-03-02 13:38:03
+ * @LastEditTime: 2022-03-02 13:42:52
  */
 import config from "@/config"
 import { deleteNullStr, info } from "@/utils"
@@ -63,6 +63,7 @@ export const newTypeFile = (
   if (type === 'declare') {
     const beautify = require('js-beautify').js
     if (template) {
+      // 美化代码
       return beautify(`${template}\n
         declare global {
           declare namespace ${namespace} {
