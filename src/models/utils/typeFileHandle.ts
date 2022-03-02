@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-02-28 17:28:17
+ * @LastEditTime: 2022-03-02 13:38:03
  */
 import config from "@/config"
 import { deleteNullStr, info } from "@/utils"
@@ -102,7 +102,7 @@ type GetContentType =  (dest: string, namespace: string) => {
  * @param namespace 命名空间
  * @returns 
  */
-export const getContent: GetContentType = (dest, namespace) => {
+const getContent: GetContentType = (dest, namespace) => {
   const content = getTypeFile(dest);
   const res = { } as ReturnType<GetContentType>
   /** 全局命名空间的正则 */
@@ -143,6 +143,13 @@ export const getContent: GetContentType = (dest, namespace) => {
   return res
 }
 
+/**
+ * 
+ * @param typeArr 要写入的类型的数组
+ * @param dest 目标文件
+ * @param namespace 写入的命名空间
+ * @returns 
+ */
 export const pushType = (typeArr: string[], dest: string, namespace: string) => {
   const { content, setContent, type } = getContent(dest, namespace)
   if (type === 'export') {
