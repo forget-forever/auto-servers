@@ -3,7 +3,9 @@
  * @Date: 2022-02-18 15:57:47
  * @LastEditTime: 2022-02-24 16:14:01
  */
-import { compileType, deleteNullStr } from "@/utils"
+import { compileType, deleteNullStr, info } from "@/utils"
+import jsonc2type from "@/utils/jsonc2type"
+import { upperFirst } from "lodash"
 import { Req_query, SchemaBody } from "../type/detailType"
 
 /**
@@ -86,4 +88,59 @@ export const createQuerySchema = (queryArr: Req_query[]): SchemaBody => {
     }
     return pre
   }, {type: 'object', properties: {}})
+}
+
+
+type GetTypeArgs = {
+  /** 什么类型的类型字符串 */
+  key: 'Params' | 'Res' | 'Data',
+  /** 名称 */
+  name?: string,
+  /** 什么方式获取类型 */
+  mod?: 'jsonc' | 'schema',
+  /** 开始获取类型的节点，默认会与name相同 */
+  startNode?: string,
+  /** 类型的json-schema */
+  schema?: SchemaBody,
+  /** jsonc的字符串 */
+  str?: string
+}
+export class ParseType {
+  private name: string
+  private namespace: string
+  /**
+   * 生成类型字符串
+   * @param name 类型的名称
+   * @param namespace 命名空间
+   */
+  constructor(name: string, namespace: string) {
+    this.name = name;
+    this.namespace = namespace
+  }
+  async format(args: GetTypeArgs) {
+    const { schema, key, name = this.name, startNode = name, mod = 'schema', str } = args
+    let res = { name: '', typeVal: '' }
+    if (!schema && !str) {
+      return res
+    }
+    const typeName = upperFirst(`${name}${key}`)
+    if (mod === 'schema') {
+      const type = await getTypeStr(schema || {}, typeName, name, startNode)
+      if (type) {
+        res = { name: `${this.namespace}.${typeName}`, typeVal: type }
+      }else {
+        res = { name: '', typeVal: ''}
+      }
+    } else {
+      try {
+        const type = jsonc2type(str || '{}', { startNode: startNode, name: typeName })
+        res = { name: `${this.namespace}.${typeName}`, typeVal: type }
+      } catch (error) {
+        info('jsonc 获取类型失败')
+        console.warn(error)
+        res = { name: '', typeVal: ''}
+      }
+    }
+    return res
+  }
 }

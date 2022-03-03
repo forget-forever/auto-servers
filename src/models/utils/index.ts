@@ -13,7 +13,6 @@ import { OneListItem } from "../type/listType"
 import { getFunctionFileTpl } from "./functionHandele"
 import { newTypeFile } from "./typeFileHandle"
 export * from './functionHandele'
-export * from './typeHandle'
 
 export const getNamespace = (file: string, typeFile: string) => {
   const regType = /(?<=(declare(\s)+namespace(\s)+))(.*)(?={)/

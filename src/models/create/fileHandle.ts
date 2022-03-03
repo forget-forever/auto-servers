@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 14:55:47
- * @LastEditTime: 2022-03-03 19:05:28
+ * @LastEditTime: 2022-03-03 20:26:54
  */
 import config from "@/config"
 import { copyDirectory, info } from "@/utils"
@@ -40,11 +40,15 @@ export const fileAfterHandle = () => {
   }
   const thisDir = process.cwd()
   const cliDir = resolve(config.rootDir, '../')
-  info(`美化生成文件: ${prettierrc}`)
+  info(`通过 ${prettierrc} 美化生成的代码`)
   info(`脚手架目录: ${cliDir}`, 'debug')
   info(`项目目录: ${thisDir}`, 'debug')
   try {
-    exec(`cd ${cliDir} && npx prettier --config ${prettierrc} --write ${dest} && cd ${thisDir}`, () => {
+    exec(`cd ${cliDir} && npx prettier --config ${prettierrc} --write ${dest} && cd ${thisDir}`, (err) => {
+      if (err) {
+        info(`prettier 格式化异常, 请检查输出文件是否符合逻辑`)
+        info(err)
+      }
       if (existsSync(dest)) {
         copyDirectory(dest, outPath)
       }
@@ -52,7 +56,6 @@ export const fileAfterHandle = () => {
     })
   } catch (error) {
     exec(`cd ${thisDir}`)
-    info(`prettier 文件异常`)
     if (existsSync(dest)) {
       copyDirectory(dest, outPath)
     }

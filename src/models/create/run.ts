@@ -8,7 +8,8 @@ import config from "@/config";
 import { getYpiMsg } from "@/servers";
 import { ApiDetail } from "../type/detailType";
 import { OneListItem } from "../type/listType";
-import { createType, getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle, requestDataPreHandle } from "../utils";
+import { getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle, requestDataPreHandle } from "../utils";
+import { createType } from "./typeHandle";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = { ...data } as unknown as ApiDetail<'obj'>
