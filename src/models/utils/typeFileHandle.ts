@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-03-03 17:50:28
+ * @LastEditTime: 2022-03-03 19:54:01
  */
 import config from "@/config"
 import { deleteNullStr, info } from "@/utils"
@@ -61,7 +61,6 @@ export const newTypeFile = (
   const val = deleteNullStr(initVal)
   const template = deleteNullStr(tpl)
   if (type === 'declare') {
-    // const beautify = require('js-beautify').js
     if (template) {
       return `${template}\n
   declare global {
