@@ -67,7 +67,7 @@ export const httpBuilderUrl = (url: string, data: Record<string, string>) => {
  * @param str 
  * @returns 
  */
- export const deleteNullStr = (str: string) => str.replace(/^[\n\s]*|[\n\s]*$/g, '')
+ export const deleteNullStr = (str: string) => str.replace(/^[\n\s\t]*|[\n\s\t]*$/g, '')
 
 /**
  * 编译类型的自己封装的方法，去除了 [k: string]: unknown;额外添加的类型

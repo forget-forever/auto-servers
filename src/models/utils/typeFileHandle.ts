@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-03-02 13:42:52
+ * @LastEditTime: 2022-03-03 14:21:39
  */
 import config from "@/config"
 import { deleteNullStr, info } from "@/utils"
@@ -154,10 +154,10 @@ const getContent: GetContentType = (dest, namespace) => {
 export const pushType = (typeArr: string[], dest: string, namespace: string) => {
   const { content, setContent, type } = getContent(dest, namespace)
   if (type === 'export') {
-    const typeStr = typeArr.filter((item) => !!item).map((ele) => `${type} ${ele}`).join('\n\n')
+    const typeStr = typeArr.filter(Boolean).map((ele) => `${type} ${ele}`).join('\n\n')
     setContent(`${content}\n${typeStr}`)
   } else {
-    setContent(`${content}\n${typeArr.join('\n')}`)
+    setContent(`${content}\n${typeArr.filter(Boolean).join('\n')}`)
   }
   return { namespace, type }
 }

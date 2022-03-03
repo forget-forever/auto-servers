@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 15:39:50
- * @LastEditTime: 2022-02-24 15:22:17
+ * @LastEditTime: 2022-03-03 12:01:31
  */
 import config from "@/config"
 import { getConfig } from "@/utils/config"
@@ -32,7 +32,7 @@ export const getNamespace = (file: string, typeFile: string) => {
   const path = resolve(config.rootDir, `tmp/${api.pathType}`)
   const file = resolve(path, `index${extendName}`)
   const typeFile = getConfig('tsType') ? resolve(path, `type.d.ts`) : ''
-  let namespace = ''
+  let namespace = getConfig('tsType') ? '' : getConfig('typeNamespace')
 
   if (!existsSync(path)) {
     mkdirSync(path, {recursive: true})
