@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-11 17:29:23
- * @LastEditTime: 2022-03-03 14:21:39
+ * @LastEditTime: 2022-03-03 17:50:28
  */
 import config from "@/config"
 import { deleteNullStr, info } from "@/utils"
@@ -61,23 +61,18 @@ export const newTypeFile = (
   const val = deleteNullStr(initVal)
   const template = deleteNullStr(tpl)
   if (type === 'declare') {
-    const beautify = require('js-beautify').js
+    // const beautify = require('js-beautify').js
     if (template) {
-      // 美化代码
-      return beautify(`${template}\n
-        declare global {
-          declare namespace ${namespace} {
-            ${val}
-          }
-        }\n`,
-        { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
-      ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
+      return `${template}\n
+  declare global {
+    declare namespace ${namespace} {
+      ${val}
     }
-    return beautify(`declare namespace ${namespace} {
-        ${val}
-      }\n`,
-      { indent_size: 2, space_in_empty_paren: true, space_before_conditional: true }
-    ).replace(/(\s)+\?(\s)+/g, '?').replace(/\}(\s)+\[/g, '}[')
+  }\n`
+    }
+    return `declare namespace ${namespace} {
+  ${val}
+}\n`
   }
   return `${template}${template ? '\n\n' : ''}${val}\n`
 }
