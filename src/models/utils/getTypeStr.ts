@@ -1,10 +1,10 @@
 /*
  * @Author: zml
  * @Date: 2022-02-18 15:57:47
- * @LastEditTime: 2022-02-24 16:14:01
+ * @LastEditTime: 2022-03-04 15:51:59
  */
 import { compileType, deleteNullStr, info } from "@/utils"
-import jsonc2type from "@/utils/jsonc2type"
+import jsonc2type from "jsonc2type"
 import { upperFirst } from "lodash"
 import { Req_query, SchemaBody } from "../type/detailType"
 
