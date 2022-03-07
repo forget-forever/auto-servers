@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-18 15:57:47
- * @LastEditTime: 2022-03-04 15:51:59
+ * @LastEditTime: 2022-03-07 15:59:23
  */
 import { compileType, deleteNullStr, info } from "@/utils"
 import jsonc2type from "jsonc2type"
@@ -14,12 +14,11 @@ import { Req_query, SchemaBody } from "../type/detailType"
  * @returns 如果是空的类型会返回undefined， 否则就原样返回
  */
 const validateNullType = (str = '') => {
-  const interfaceNullReg = /interface(\s)+(\w)*(\s)+(\{)[\n\s]*(\})/g
-  const typeNullReg = /type(\s)+(\w)*(\s)*=(\s)*(\{)[\n\s]*(\})/g
-  if (interfaceNullReg.test(str) || typeNullReg.test(str)){
+  const reg = /(interface(\s)+(\w)*(\s)+(\{)[\n\s\t]*(\}))|(type(\s)+(\w)*(\s)*=(\s)*(\{)[\n\s\t]*(\}))/g
+  if (reg.test(str)){
     return undefined
   } else {
-    return deleteNullStr(str).replace(/(\s)+(\{)[\n\s]*(\})/g, ' Record<string, string>')
+    return deleteNullStr(str).replace(/(\s)+(\{)[\n\s\t]*(\})/g, ' Record<string, string>')
   }
 }
 
