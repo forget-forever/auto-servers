@@ -1,6 +1,6 @@
 {
   "name": "auto-servers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "前端根据yapi自动生成servers的命令行工具",
   "bin": {
     "auto-servers": "lib/index.js"
@@ -43,7 +43,7 @@
     "inquirer": "^8.2.0",
     "json-schema-to-typescript": "^10.1.5",
     "jsonc-parser": "^3.0.0",
-    "jsonc2type": "^1.0.0",
+    "jsonc2type": "^1.0.2",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "node-cmd": "^4.0.0",
