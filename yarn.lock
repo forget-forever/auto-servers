@@ -385,6 +385,13 @@ array-union@^2.1.0:
   resolved "http://npm.sfjswl.com/array-union/-/array-union-2.1.0.tgz"
   integrity sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
 
+as-config@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/as-config/-/as-config-1.1.0.tgz#f4cffb65f812fef46dabd2cfe6f20c59b576de9b"
+  integrity sha512-Ud6iQs7FGZrb0DMrfbr1hT8GvgKvsFStie0BWvIbWNcpLoaMht6QOhfdDam/w8c8qj/SUzJ9dyAwO19/Y4GkIw==
+  dependencies:
+    "@types/json-schema" "^7.0.9"
+
 asn1@~0.2.3:
   version "0.2.6"
   resolved "http://npm.sfjswl.com/asn1/-/asn1-0.2.6.tgz"
@@ -1466,9 +1473,9 @@ jsonc-parser@^3.0.0:
   integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
 
 jsonc2type@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/jsonc2type/-/jsonc2type-1.0.2.tgz#ecdf7fb3dac4f5aecfdbcdb044912c6245938ff4"
-  integrity sha512-GPSrivgtXsMJgzVWInn8GR09Jqmp+MECRX4a1E0t2U1dEXHg3Gzv7tEd0mG6/fGvhk+Gww/UPF97FFOCFylgOg==
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/jsonc2type/-/jsonc2type-1.0.3.tgz#a46335d6726ec4be44986d5e2a93b3b5ee642af9"
+  integrity sha512-eKBSOGhunyIKfrKxHdCVR1CgQpWw6uEX20J07kRG8QUOII7wjsexxvUy/oaiS0SCmpt1qZdn2y+2ZhRw+f5MJg==
   dependencies:
     "@types/lodash" "^4.14.179"
     lodash "^4.17.21"

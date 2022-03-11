@@ -1,27 +1,12 @@
+/** @type {import("as-config").AsConfig} */
 module.exports = {
-  projectId: "", /** 项目id */
+  projectId: "",
+  token: "",
 
-  token: "", /** 项目的token */
-  
-  // importModel: ["import request from '@/utils/request'"], /** 引入的model */
+  // importModel: ["import request from '@/utils/request'"],
 
-  // importTypeModel: [], /** 类型文件中引入的model */
+  importTypeModel: [],
 
-  /**
-   * 生成的方法模版`
-   * @param {{
-   *  url: string, // 接口的url
-   *  paramsType: string, // query请求参数类型
-   *  dataType: string, // 请求体的参数类型
-   *  returnType: string, // 返回的结果类型
-   *  method: string, // 请求方式
-   *  paramsHandle: (paramsType = '', dataType = '', params = 'params', data = 'data') => string, // 参数的预处理
-   *  requestDataHandle: (paramsType?: string, dataType?: string, , params = 'params', data = 'data') => string, // 请求参数的预处理
-   *  urlHandle: (url: string, params = 'params') => string, // 内置的路径预处理函数，处理路由传参
-   *  apiDetail: import("@/models/create/detailType").ApiDetail<'obj'> // 接口的详情
-   * }} api
-   * @returns {string} 方法字符串
-   */
   // serviceTemplate: (api) => {
   //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
   //   return (
@@ -30,25 +15,24 @@ module.exports = {
   //   )
   // },
 
-  // mockUrl: "http://yapi.sfjswl.com", /** yapi的mock地址，写上域名就够了，例如：http://yapi.sfjswl.com */
+  // mockUrl: "http://yapi.sfjswl.com", 
 
-  // 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类
   // collections: {
   //   // test集合，含有3.2和utils的tag为一个集合
   //   test: ["3.2", "utils"]
   // },
+
+  // outPath: "src/servers",
+
+  // typeRootNode: "data", 
   
-  // outPath: "src/servers", /** 生成请求的目录 */
+  // extendName: ".ts",
 
-  // typeRootNode: "data", /** 返回的参数解析类型的节点，默认是data节点开始解析 */
+  // tsType: true,
 
-  // extendName: ".ts", /** 生成的文件的拓展名，分为.js 和 .ts */
+  exportType: "export",
 
-  // tsType: true, /** 是否需要生成ts类型, 默认为true */
-
-  // exportType: "export", /** 类型的导出形式，分为declare 和 export两种 */
-
-  // typeNamespace: 'Request', /** 类型的命名空间 */
-
-  // defaultApisType: 'utils' /** 默认的接口分类 */
+  // typeNamespace: 'Request',
+  
+  // defaultApisType: 'utils'
 }

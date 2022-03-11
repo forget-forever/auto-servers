@@ -5,6 +5,8 @@
   "bin": {
     "auto-servers": "lib/index.js"
   },
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
   "scripts": {
     "test": "ts-node --transpile-only src/test.ts",
     "dev:comment": "启动开发环境, 建议直接使用ts-node运行。",
@@ -36,6 +38,7 @@
     "@types/node-emoji": "^1.8.1",
     "@types/pinyin": "^2.10.0",
     "@types/request": "^2.48.8",
+    "as-config": "^1.1.0",
     "chalk": "4.1.2",
     "child_process": "^1.0.2",
     "cli-spinner": "^0.2.10",

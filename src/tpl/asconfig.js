@@ -1,9 +1,10 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-02-24 14:31:12
+ * @LastEditTime: 2022-03-11 19:28:34
  */
 
+/** @type {import("as-config").AsConfig} */
 module.exports = {
   // 项目id
   projectId: "",
@@ -31,7 +32,7 @@ module.exports = {
    *  returnType: string, // 返回的结果类型
    *  method: string, // 请求方式
    *  paramsHandle: (paramsType = '', dataType = '', params = 'params', data = 'data') => string, // 参数的预处理
-   *  requestDataHandle: (paramsType?: string, dataType?: string, , params = 'params', data = 'data') => string, // 请求参数的预处理
+   *  requestDataHandle: (paramsType?: string, dataType?: string, params = 'params', data = 'data') => string, // 请求参数的预处理
    *  urlHandle: (url: string, params = 'params') => string, // 内置的路径预处理函数，处理路由传参
    *  apiDetail: import("@/models/type/detailType").ApiDetail<'obj'> // 接口的详情
    * }} api
