@@ -1,17 +1,16 @@
 /*
  * @Author: zml
  * @Date: 2022-01-06 21:24:29
- * @LastEditTime: 2022-02-22 16:56:58
+ * @LastEditTime: 2022-03-11 19:35:04
  */
 import { resolve } from "path";
 import type asc from '@/tpl/asconfig'
 import config from "@/config";
 import chalk from "chalk";
 import { getParams } from "./params";
+import { AsConfig } from "as-config"
 
-type AscType = Omit<typeof asc, 'importTypeModel'> & {
-  importTypeModel?: string[]
-}
+type AscType = Required<AsConfig>
 
 /** 默认配置项 */
 let defaultConfig: AscType | undefined
