@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-06 21:24:29
- * @LastEditTime: 2022-03-11 19:35:04
+ * @LastEditTime: 2022-03-14 16:33:50
  */
 import { resolve } from "path";
 import type asc from '@/tpl/asconfig'
@@ -42,6 +42,8 @@ export const getUserConfig = () => {
   }
 }
 
+const nullVal = [undefined, null, ''] as unknown[]
+
 /**
  * 获取配置项
  * @param key 配置项的键名
@@ -50,12 +52,11 @@ export const getUserConfig = () => {
 export const getConfig = <K extends keyof AscType>(key: K): AscType[K] => {
   if (!config.requiredConfig.includes(key)) {
     const res = getUserConfig()[key]
-    const nullVal = [undefined, null, ''] as unknown[]
     if (!nullVal.includes(res)){
       return res
     }
     return getDefaultConfig()[key]
-  } else if (getUserConfig()[key]){
+  } else if (!nullVal.includes(getUserConfig()[key])){
     return getUserConfig()[key]
   }
   console.log(chalk.red(`❌ 缺少必填配置项：${key}`))
