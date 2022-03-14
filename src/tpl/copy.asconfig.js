@@ -5,7 +5,7 @@ module.exports = {
 
   // importModel: ["import request from '@/utils/request'"],
 
-  importTypeModel: [],
+  // importTypeModel: [],
 
   // serviceTemplate: (api) => {
   //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
