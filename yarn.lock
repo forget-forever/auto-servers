@@ -1472,10 +1472,10 @@ jsonc-parser@^3.0.0:
   resolved "http://npm.sfjswl.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz"
   integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
 
-jsonc2type@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/jsonc2type/-/jsonc2type-1.0.3.tgz#a46335d6726ec4be44986d5e2a93b3b5ee642af9"
-  integrity sha512-eKBSOGhunyIKfrKxHdCVR1CgQpWw6uEX20J07kRG8QUOII7wjsexxvUy/oaiS0SCmpt1qZdn2y+2ZhRw+f5MJg==
+jsonc2type@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/jsonc2type/-/jsonc2type-1.0.4.tgz#0f1a453fa604a01bda45fe5b918482dc52fd3c6b"
+  integrity sha512-HDscW+deZqJjjQtMMNdPZ/h91B/M8xZAxYLhzIpGkZOsOikT5dJoh+VyCEaVh6DGj3d3wAfT6Yi05UfqFQumAw==
   dependencies:
     "@types/lodash" "^4.14.179"
     lodash "^4.17.21"

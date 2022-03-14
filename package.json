@@ -46,7 +46,7 @@
     "inquirer": "^8.2.0",
     "json-schema-to-typescript": "^10.1.5",
     "jsonc-parser": "^3.0.0",
-    "jsonc2type": "^1.0.2",
+    "jsonc2type": "^1.0.4",
     "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "node-cmd": "^4.0.0",
