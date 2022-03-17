@@ -12,6 +12,7 @@ import { ApiDetail } from "../type/detailType"
 import { OneListItem } from "../type/listType"
 import { getFunctionFileTpl } from "./functionHandele"
 import { newTypeFile } from "./typeFileHandle"
+export * from './compileFunction'
 export * from './functionHandele'
 
 export const getNamespace = (file: string, typeFile: string) => {

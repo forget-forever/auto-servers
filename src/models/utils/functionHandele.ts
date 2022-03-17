@@ -1,10 +1,12 @@
 /*
  * @Author: zml
  * @Date: 2022-02-09 15:27:10
- * @LastEditTime: 2022-02-21 18:54:46
+ * @LastEditTime: 2022-03-17 17:53:37
  */
 import { getConfig } from "@/utils/config"
+import { ConfigApi } from "as-config"
 import { readFileSync, writeFileSync } from "fs"
+import { compileFunction, CreateFunctionParams, paramsPreHandle, requestDataPreHandle, urlPreHandle } from "./compileFunction"
 import { getExportType } from "./typeFileHandle"
 
 export const getFunctionFileTpl = (namespace = getConfig('typeNamespace')) => {
@@ -34,56 +36,26 @@ export const pushFunction = (name: string, body: string, src: string, comment?: 
   writeFileSync(src, `${content}export const ${name} = ${body}\n\n`)
 }
 
-const createTplStr = (str = '', params: string) => '${' + `${params}.${str}` + '}'
-
 /**
- * 路径的预处理函数，解决一些路由传参
- * @param url 路径
- * @param params 参数名
- * @returns 处理后的参数
- */
-export const urlPreHandle = (url: string, params = 'params') => {
-  const braketsReg = /\{(\w)+\}/g
-  const colonReg = /(:)(\w)+/g
-  let res = url
-  let tplStr = "'"
-  res = res.replace(braketsReg, (match) => {
-    const item = match.match(/(?<=\{)((\w)*)(?=\})/g) || ['']
-    if (item[0]) {
-      tplStr = '`'
-      return createTplStr(item[0], params)
-    }
-    return match
-  })
-  res = res.replace(colonReg, (match) => {
-    const item = match.match(/(?<=:)(\w)+/g) || ['']
-    if(item[0]) {
-      tplStr = '`'
-      return createTplStr(item[0], params)
-    }
-    return match
-  })
-
-  return `${tplStr}${res}${tplStr}`
-}
-
-/**
- * 参数的预处理
- * @param paramsType query参数类型
- * @param dataType 请求体data类型
+ * 生成js / ts方法
+ * @param api 接口的数据
  * @returns 
  */
-export const paramsPreHandle = (paramsType = '', dataType = '', params = 'params', data = 'data') => {
-  let res = ''
-  if (paramsType) {
-    res += `${params}: ${paramsType},`
+export const createFunction = (api: CreateFunctionParams) => {
+  const serversTemplate = getConfig('serviceTemplate')
+  let resModel = ''
+  if (typeof serversTemplate === 'string') {
+    resModel = serversTemplate
+  }else {
+    resModel = serversTemplate({
+      ...api,
+      paramsHandle: paramsPreHandle,
+      requestDataHandle: requestDataPreHandle,
+      method: api.apiDetail.method,
+      urlHandle: urlPreHandle,
+      url: api.apiDetail.path
+    })
   }
-  if (dataType) {
-    res += ` ${data}: ${dataType}`
-  }
-  return res
-}
 
-export const requestDataPreHandle = (paramsType = '', dataType = '', params = 'params', data = 'data') => {
-  return `${paramsType ? ` ${params},` : ''}${dataType ? ` ${data},`: '' }`
+  return compileFunction(resModel, api)
 }

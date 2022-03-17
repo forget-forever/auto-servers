@@ -9,10 +9,21 @@ import { copyFileSync } from "fs";
 import { resolve } from "path";
 
 import { info } from "@/utils";
+import inquirer from "inquirer";
 
-const init = (name = '') => {
+const init = async (name = '') => {
+  const langMap = {
+    'TypeScript': 'ts',
+    'JavaScript': 'js'
+  }
   const fileName = `${name}.asconfig.js`
-  copyFileSync(resolve(config.rootDir, 'tpl/copy.asconfig.js'), resolve(process.cwd(), fileName))
+  const ans = await inquirer.prompt({
+    type: 'list',
+    message: '请选择项目语言:',
+    name: 'res',
+    choices: Object.keys(langMap)
+  })
+  copyFileSync(resolve(config.rootDir, `tpl/copy-${langMap[ans.res]}.asconfig.js`), resolve(process.cwd(), fileName))
   info(chalk.bold.green(`>> 创建${fileName}成功🙆 `))
 };
 

@@ -385,10 +385,10 @@ array-union@^2.1.0:
   resolved "http://npm.sfjswl.com/array-union/-/array-union-2.1.0.tgz"
   integrity sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
 
-as-config@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/as-config/-/as-config-1.1.0.tgz#f4cffb65f812fef46dabd2cfe6f20c59b576de9b"
-  integrity sha512-Ud6iQs7FGZrb0DMrfbr1hT8GvgKvsFStie0BWvIbWNcpLoaMht6QOhfdDam/w8c8qj/SUzJ9dyAwO19/Y4GkIw==
+as-config@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/as-config/-/as-config-1.1.3.tgz#55b6d78d30411a5e25804ff8d549b3e92391b78b"
+  integrity sha512-Mc7JPDWllGgsmJ6aLDe+FlufmtY+xAKyC1ylZF+pEXTv5M6yJNZ5ZISoX+dpcZdSiky0v8a2qdC49hJO8rXgSg==
   dependencies:
     "@types/json-schema" "^7.0.9"
 

@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-03-14 16:34:26
+ * @LastEditTime: 2022-03-17 16:29:44
  */
 
 /** @type {import("as-config").AsConfig} */
@@ -24,13 +24,14 @@ module.exports = {
   /** 类型文件中引入的model */
   importTypeModel: [],
   /** 生成的方法模版`*/
-  serviceTemplate: (api) => {
-    const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle} = api
-    return (
-      `(${paramsHandle(paramsType, dataType)}) => 
-  request${returnType? `<${returnType}>` : ''}(${urlHandle(url)}, {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
-    )
-  },
+  serviceTemplate: `($RequestQuery) => request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method})`,
+  // serviceTemplate: (api) => {
+  //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle} = api
+  //   return (
+  //     `(${paramsHandle(paramsType, dataType)}) => 
+  // request${returnType? `<${returnType}>` : ''}(${urlHandle(url)}, {${requestDataHandle(paramsType, dataType)} method: '${method}' })`
+  //   )
+  // },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 生成的文件的拓展名，分为.js 和 .ts

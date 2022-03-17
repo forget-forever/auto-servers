@@ -3,12 +3,11 @@
  * @Date: 2022-01-12 18:16:04
  * @LastEditTime: 2022-02-28 16:00:49
  */
-import { getConfig } from "@/utils/config";
 import config from "@/config";
 import { getYpiMsg } from "@/servers";
 import { ApiDetail } from "../type/detailType";
 import { OneListItem } from "../type/listType";
-import { getDest, getFunctionName, urlPreHandle, pushFunction, paramsPreHandle, requestDataPreHandle } from "../utils";
+import { getDest, getFunctionName, pushFunction, createFunction } from "../utils";
 import { createType } from "./typeHandle";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
@@ -28,8 +27,6 @@ const run = async (api: OneListItem) => {
   })
   const apiDetail = apiDetailHandle(res.data)
 
-  const serversTemplate = getConfig('serviceTemplate')
-
   const {file, typeFile, namespace} = getDest(api)
 
   /** 生成类型文件 */
@@ -38,15 +35,10 @@ const run = async (api: OneListItem) => {
   /** 生成方法文件 */
   pushFunction(
     getFunctionName(api),
-    serversTemplate({
-      url: apiDetail.path,
+    createFunction({
+      responseType: resTypeName,
       paramsType: paramsTypeName,
       dataType: dataTypeName,
-      returnType: resTypeName,
-      method: apiDetail.method,
-      paramsHandle: paramsPreHandle,
-      urlHandle: urlPreHandle,
-      requestDataHandle: requestDataPreHandle,
       apiDetail
     }),
     file, 
