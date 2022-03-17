@@ -3,7 +3,7 @@ import { ConfigApi } from "as-config"
 /*
  * @Author: zml
  * @Date: 2022-03-17 14:23:11
- * @LastEditTime: 2022-03-17 17:55:03
+ * @LastEditTime: 2022-03-17 19:23:28
  */
 const createTplStr = (str = '', params: string) => '${' + `${params}.${str}` + '}'
 
@@ -93,7 +93,7 @@ export const compileFunction = (resModel: string, api: CreateFunctionParams) => 
   }
   const grammarReg = new RegExp(Object.keys(grammarMap).map((item) => `(\\${item})`).join('|'), 'gs')
   let res = resModel.replace(grammarReg, (match) => {
-    return (grammarMap[match] && grammarMap[match]()) || match
+    return (grammarMap[match] && grammarMap[match]()) || ''
   })
   res = res.replace(/((\w)+(\s)*:[\s\n]*(undefined)(,)*)|(<>)/gs, '')
   const jitReg = new RegExp(Object.keys(jitGrammarMap).map((item) => `(\\${item})`).join('|'), 'gs')

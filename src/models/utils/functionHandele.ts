@@ -4,7 +4,6 @@
  * @LastEditTime: 2022-03-17 17:53:37
  */
 import { getConfig } from "@/utils/config"
-import { ConfigApi } from "as-config"
 import { readFileSync, writeFileSync } from "fs"
 import { compileFunction, CreateFunctionParams, paramsPreHandle, requestDataPreHandle, urlPreHandle } from "./compileFunction"
 import { getExportType } from "./typeFileHandle"

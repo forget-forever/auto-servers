@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-03-17 17:11:08
+ * @LastEditTime: 2022-03-17 19:14:21
  */
 /** @type {import('as-config').AsConfig} */
 module.exports = {
@@ -22,13 +22,13 @@ module.exports = {
   // importTypeModel: ["import enum from '@/utils/enum'"],
   /**
    * 生成的方法模版` */
-  serviceTemplate: (api) => {
-    const {url, paramsType, dataType, responseType , method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
-    return (
-      `(${paramsHandle(paramsType, dataType)}) => 
-  request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method })`
-    )
-  },
+  // serviceTemplate: (api) => {
+  //   const {url, paramsType, dataType, responseType , method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
+  //   return (
+  //     `(${paramsHandle(paramsType, dataType)}) => 
+  // request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method })`
+  //   )
+  // },
   // 返回的参数解析类型的节点，默认是data节点开始解析
   typeRootNode: "data",
   // 类型的导出形式，分为 declare 和 export两种
