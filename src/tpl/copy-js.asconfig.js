@@ -10,7 +10,7 @@ module.exports = {
 
   serviceTemplate: (options) => {
     const { method } = options
-    return `(data) => request<$ResponseType>($Url, { ${method.toUpperCase() === 'GET' ? 'params' : 'data'}: data, method: $Method})`
+    return `(data) => request($Url, { ${method.toUpperCase() === 'GET' ? 'params' : 'data'}: data, method: $Method})`
   },
 
   extendName: ".js",

@@ -1,10 +1,10 @@
-import { ConfigApi } from "as-config"
-
 /*
  * @Author: zml
  * @Date: 2022-03-17 14:23:11
- * @LastEditTime: 2022-03-17 19:23:28
+ * @LastEditTime: 2022-03-22 18:16:08
  */
+import { ConfigApi } from "as-config"
+
 const createTplStr = (str = '', params: string) => '${' + `${params}.${str}` + '}'
 
 /**
