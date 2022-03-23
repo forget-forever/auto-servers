@@ -26,7 +26,7 @@ module.exports = {
   //   const {url, paramsType, dataType, responseType , method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
   //   return (
   //     `(${paramsHandle(paramsType, dataType)}) => 
-  // request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method })`
+  // request<$ResponseType>($Url, { params: $Params, data: $Data, method: $Method })`
   //   )
   // },
   // 返回的参数解析类型的节点，默认是data节点开始解析

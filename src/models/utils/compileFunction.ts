@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-03-17 14:23:11
- * @LastEditTime: 2022-03-22 18:16:08
+ * @LastEditTime: 2022-03-23 14:12:50
  */
 import { ConfigApi } from "as-config"
 
@@ -67,10 +67,18 @@ const curlName = (str: string) => {
   return resArr[0]
 }
 
-const curlParamDataName = (resModel: string, num: number) => {
+const curlParamDataName = (resModel: string, mode: 'params' | 'data', typeStr: string) => {
+  if (!typeStr) {
+    return 'undefined'
+  }
   const queryReg = /(?<=\()(.*?)(?=\))/gs
   const queryStr = resModel.match(queryReg) || ['']
-  return curlName(queryStr[0].split(',')[num] || '') || 'undefined'
+  const queryArr = queryStr[0].split(',')
+  let num = 0;
+  if (mode === 'data' && queryArr[1]) {
+    num = 1
+  }
+  return curlName(queryArr[num] || '') || 'undefined'
 }
 
 /**
@@ -88,8 +96,8 @@ export const compileFunction = (resModel: string, api: CreateFunctionParams) => 
     '$Url': () => urlPreHandle(apiDetail.path),
   }
   const jitGrammarMap: Record<string, (actual: string) => string>= {
-    '$Prams': (actual) => curlParamDataName(actual, 0),
-    '$Data': (actual) => curlParamDataName(actual, 1)
+    '$Params': (actual) => curlParamDataName(actual, 'params', paramsType),
+    '$Data': (actual) => curlParamDataName(actual, 'data', dataType)
   }
   const grammarReg = new RegExp(Object.keys(grammarMap).map((item) => `(\\${item})`).join('|'), 'gs')
   let res = resModel.replace(grammarReg, (match) => {

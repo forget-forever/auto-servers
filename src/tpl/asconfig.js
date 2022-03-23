@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-03-17 16:29:44
+ * @LastEditTime: 2022-03-23 14:03:31
  */
 
 /** @type {import("as-config").AsConfig} */
@@ -24,7 +24,7 @@ module.exports = {
   /** 类型文件中引入的model */
   importTypeModel: [],
   /** 生成的方法模版`*/
-  serviceTemplate: `($RequestQuery) => request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method})`,
+  serviceTemplate: `($RequestQuery) => request<$ResponseType>($Url, { params: $Params, data: $Data, method: $Method})`,
   // serviceTemplate: (api) => {
   //   const {url, paramsType, dataType, returnType, method, paramsHandle,  urlHandle, requestDataHandle} = api
   //   return (

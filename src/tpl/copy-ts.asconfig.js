@@ -8,7 +8,7 @@ module.exports = {
 
   // importTypeModel: [],
 
-  serviceTemplate: `($RequestQuery) => request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method})`,
+  serviceTemplate: `($RequestQuery) => request<$ResponseType>($Url, { params: $Params, data: $Data, method: $Method})`,
 
   exportType: "export",
 
