@@ -64,7 +64,7 @@ auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当�
 | typeNamespace | 型的命名空间 | string | 'Request' | false |
 | defaultApisType | 默认的接口分类,当接口找不到分类时用的分类目录名称 | string | 'utils' | false |
 
-### <spam id="TemplateFunction">TemplateFunction
+### <span id="TemplateFunction">TemplateFunction</span>
 
 - 生成方法的模版方法，默认的是一个字符串，集成了一个servers方法主要部分的的语法糖
 
