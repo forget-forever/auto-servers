@@ -1,6 +1,6 @@
 {
   "name": "auto-servers",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "前端根据yapi自动生成servers的命令行工具",
   "bin": {
     "auto-servers": "lib/index.js"
@@ -19,12 +19,11 @@
     "eslint": "eslint --fix src --ext .ts --max-warnings=0",
     "uninstall": "npm uninstall auto-servers -g"
   },
-  "homepage": "",
+  "homepage": "http://gitlab.sfjswl.com/fe/auto-servers/-/blob/master/README.md",
   "repository": {
     "type": "git",
     "url": "http://gitlab.sfjswl.com/fe/auto-servers.git"
   },
-  "homepage": "http://gitlab.sfjswl.com/fe/auto-servers/-/blob/master/README.md",
   "author": "zml",
   "license": "MIT",
   "devDependencies": {
