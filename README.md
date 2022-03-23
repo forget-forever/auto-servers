@@ -51,7 +51,7 @@ auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当�
 | ----| ---- | ---- | ---- | ---- |
 | projectId | 项目id | string | - | true |
 | token | 项目token | string | - | true |
-| mockUrl | yapi的mock地址，写上域名就够了，例如：<http://yapi.xxxxxxx.com> | string | ‘http://yapi.sfjswl.com’ | false |
+| mockUrl | yapi的mock地址，写上域名就够了，例如：<http://yapi.xxxxxxx.com> | string | '<http://yapi.sfjswl.com>' | false |
 | importModel | 引入的modules | string[] | ["import request from '@/utils/request'"] | false |
 | collections | 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类 | string | {} | false |
 | outPath | 方法生成的目录 | string | ‘src/servers’ | false |
@@ -82,6 +82,7 @@ auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当�
 | $Data | 请求的请求体data参数，会自动识别方法中的第二个参数名称 |
 
 - 也可以是一个函数，通过自己的编程方式动态生成方法，在这个方法中同样也是可以使用模板方法中集成的语法糖
+
 ```typescript
 (api) => {
   const {url, paramsType, dataType, responseType , method, paramsHandle,  urlHandle, requestDataHandle, apiDetail} = api
@@ -91,6 +92,7 @@ request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method })`
   )
 }
 ```
+
 参数说明：
 | 属性 | 说明 | 类型 |
 | ---- | ------- | ---- |
@@ -103,7 +105,6 @@ request<$ResponseType>($Url, { params: $Prams, data: $Data, method: $Method })`
 | requestDataHandle | $Params 和 $Data 共同的处理函数 | (paramsType?: string, dataType?: string, params?: string, data?: string) => string |
 | urlHandle | $Url 的处理函数 | (url: string, params?: string) => string |
 | apiDetail | yapi上接口的详细数据 | ApiDetail |
-
 
 ## 配置文件辅助包
 
