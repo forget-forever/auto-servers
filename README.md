@@ -8,8 +8,8 @@
 
 ### 路径别名
 
-moudle-alias 的 addAlias是失效的, 所以说只能在package.json 中写_moduleAliases 添加路径别名。
-moudle-alias 目前路径 @ 指向打包出来的文件夹，开发环境tsconfig-path会生效，指向src文件夹
+- moudle-alias 的 addAlias是失效的, 所以说只能在package.json 中写_moduleAliases 添加路径别名。
+- moudle-alias 目前路径 @ 指向打包出来的文件夹，开发环境tsconfig-path会生效，指向src文件夹
 
 ## 运行流程
 
@@ -51,11 +51,11 @@ auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当�
 | ----| ---- | ---- | ---- | ---- |
 | projectId | 项目id | string | - | true |
 | token | 项目token | string | - | true |
-| mockUrl | yapi的mock地址，写上域名就够了，例如：<http://yapi.xxxxxxx.com> | string | '<http://yapi.sfjswl.com>' | false |
+| mockUrl | yapi的mock地址，写上域名就够了，例如：<http://yapi.xxxxxxx.com> | string | 'http://yapi.sfjswl.com' | false |
 | importModel | 引入的modules | string[] | ["import request from '@/utils/request'"] | false |
 | collections | 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类 | string | {} | false |
-| outPath | 方法生成的目录 | string | ‘src/servers’ | false |
-| serviceTemplate | 生成的方法模版 | TemplateFunction | ‘(&#36;RequestQuery) => request<&#36;ResponseType>(&#36;Url, { params: &#36;Params, data: &#36;Data, method: &#36;Method})’ | false |
+| outPath | 方法生成的目录 | string | 'src/servers' | false |
+| serviceTemplate | 生成的方法模版 | [TemplateFunction](#TemplateFunction) | '(&#36;RequestQuery) => request<&#36;ResponseType>(&#36;Url, { params: &#36;Params, data: &#36;Data, method: &#36;Method})' | false |
 | importTypeModel | 类型文件中引入的module | string[] | [] | false |
 | typeRootNode | 返回的参数解析类型的节点，默认是data节点开始解析 | string | 'data' | false |
 | extendName | 生成的文件的拓展名，分为.js 和 .ts | '.js'&#124;'.ts' | '.ts' | false |
@@ -64,7 +64,7 @@ auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当�
 | typeNamespace | 型的命名空间 | string | 'Request' | false |
 | defaultApisType | 默认的接口分类,当接口找不到分类时用的分类目录名称 | string | 'utils' | false |
 
-### TemplateFunction
+### TemplateFunction{#TemplateFunction}
 
 - 生成方法的模版方法，默认的是一个字符串，集成了一个servers方法主要部分的的语法糖
 
@@ -79,7 +79,7 @@ auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当�
 | $Method | 请求方式 |
 | $Url | 请求的url，集成了路由穿参的处理 |
 | $Params | 请求的query参数，会自动识别方法中的第一个参数名称 |
-| $Data | 请求的请求体data参数，会自动识别方法中的第二个参数名称，没有的话就是第一个 |
+| $Data | 请求的请求体data参数，会自动识别方法中的第二个参数名称 |
 
 - 也可以是一个函数，通过自己的编程方式动态生成方法，在这个方法中同样也是可以使用模板方法中集成的语法糖
 
