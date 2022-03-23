@@ -23,6 +23,7 @@
     "type": "git",
     "url": "http://gitlab.sfjswl.com/fe/auto-servers.git"
   },
+  "homepage": "http://gitlab.sfjswl.com/fe/auto-servers/-/blob/master/README.md",
   "author": "zml",
   "license": "MIT",
   "devDependencies": {
