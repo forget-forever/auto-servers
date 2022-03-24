@@ -4,8 +4,8 @@
  * @LastEditTime: 2022-03-14 16:33:50
  */
 import { resolve } from "path";
-import type asc from '@/tpl/asconfig'
-import config from "@/config";
+import type asc from '@as-src/tpl/asconfig'
+import config from "@as-src/config";
 import chalk from "chalk";
 import { getParams } from "./params";
 import { AsConfig } from "as-config"
@@ -23,7 +23,7 @@ export const getDefaultConfig = () => {
   if (defaultConfig) {
     return defaultConfig
   }
-  defaultConfig = require('@/tpl/asconfig') as AscType
+  defaultConfig = require('@as-src/tpl/asconfig') as AscType
   return defaultConfig
 };
 

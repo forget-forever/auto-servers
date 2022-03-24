@@ -3,7 +3,7 @@
  * @Date: 2022-02-09 15:27:10
  * @LastEditTime: 2022-03-17 17:53:37
  */
-import { getConfig } from "@/utils/config"
+import { getConfig } from "@as-src/utils/config"
 import { readFileSync, writeFileSync } from "fs"
 import { compileFunction, CreateFunctionParams, paramsPreHandle, requestDataPreHandle, urlPreHandle } from "./compileFunction"
 import { getExportType } from "./typeFileHandle"

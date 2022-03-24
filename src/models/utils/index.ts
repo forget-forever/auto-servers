@@ -3,8 +3,8 @@
  * @Date: 2022-02-08 15:39:50
  * @LastEditTime: 2022-03-03 12:01:31
  */
-import config from "@/config"
-import { getConfig } from "@/utils/config"
+import config from "@as-src/config"
+import { getConfig } from "@as-src/utils/config"
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import { camelCase, last } from "lodash"
 import { resolve } from "path"

@@ -1,4 +1,4 @@
-import config from "@/config"
+import config from "@as-src/config"
 
 /**
  * 命令行启动参数

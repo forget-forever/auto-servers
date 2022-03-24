@@ -5,7 +5,7 @@
  */
 import { OneListItem } from "../type/listType"
 import inquirer from "inquirer"
-import { info, ProgressLogs } from "@/utils"
+import { info, ProgressLogs } from "@as-src/utils"
 import chalk from "chalk"
 import run from "./run"
 import { emoji } from "node-emoji"

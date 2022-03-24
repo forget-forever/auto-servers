@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-03-03 20:17:58
  */
 
-import { getConfig } from "@/utils/config"
+import { getConfig } from "@as-src/utils/config"
 import { ApiDetail } from "../type/detailType"
 import { getFunctionName } from "../utils"
 import { createQuerySchema, ParseType } from "../utils/getTypeStr"

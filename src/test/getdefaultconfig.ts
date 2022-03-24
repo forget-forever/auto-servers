@@ -1,4 +1,4 @@
-import { getConfig } from "@/utils/config";
+import { getConfig } from "@as-src/utils/config";
 
 const init = () => {
 

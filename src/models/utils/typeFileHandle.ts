@@ -3,9 +3,9 @@
  * @Date: 2022-02-11 17:29:23
  * @LastEditTime: 2022-03-03 20:12:16
  */
-import config from "@/config"
-import { deleteNullStr, info } from "@/utils"
-import { getConfig } from "@/utils/config"
+import config from "@as-src/config"
+import { deleteNullStr, info } from "@as-src/utils"
+import { getConfig } from "@as-src/utils/config"
 import chalk from "chalk"
 import { readFileSync, writeFileSync } from "fs"
 

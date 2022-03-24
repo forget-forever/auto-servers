@@ -3,11 +3,11 @@
  * @Date: 2022-02-08 14:53:05
  * @LastEditTime: 2022-02-17 19:17:32
  */
-import config from "@/config"
-import { getYpiMsg, translate } from "@/servers"
-import { objMap } from "@/utils"
-import { getConfig } from "@/utils/config"
-import { getParams } from "@/utils/params"
+import config from "@as-src/config"
+import { getYpiMsg, translate } from "@as-src/servers"
+import { objMap } from "@as-src/utils"
+import { getConfig } from "@as-src/utils/config"
+import { getParams } from "@as-src/utils/params"
 import { camelCase } from "lodash"
 import { ApiListItem, OneListItem } from "../type/listType"
 

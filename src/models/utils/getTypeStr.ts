@@ -3,7 +3,7 @@
  * @Date: 2022-02-18 15:57:47
  * @LastEditTime: 2022-03-07 15:59:23
  */
-import { compileType, deleteNullStr, info } from "@/utils"
+import { compileType, deleteNullStr, info } from "@as-src/utils"
 import jsonc2type from "jsonc2type"
 import { upperFirst } from "lodash"
 import { Req_query, SchemaBody } from "../type/detailType"

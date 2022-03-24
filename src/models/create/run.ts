@@ -3,8 +3,8 @@
  * @Date: 2022-01-12 18:16:04
  * @LastEditTime: 2022-02-28 16:00:49
  */
-import config from "@/config";
-import { getYpiMsg } from "@/servers";
+import config from "@as-src/config";
+import { getYpiMsg } from "@as-src/servers";
 import { ApiDetail } from "../type/detailType";
 import { OneListItem } from "../type/listType";
 import { getDest, getFunctionName, pushFunction, createFunction } from "../utils";

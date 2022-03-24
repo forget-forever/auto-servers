@@ -1,11 +1,11 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 14:55:47
- * @LastEditTime: 2022-03-03 20:26:54
+ * @LastEditTime: 2022-03-24 16:44:10
  */
-import config from "@/config"
-import { copyDirectory, info } from "@/utils"
-import { getConfig } from "@/utils/config"
+import config from "@as-src/config"
+import { copyDirectory, info } from "@as-src/utils"
+import { getConfig } from "@as-src/utils/config"
 import { exec } from "child_process"
 import { existsSync, rmdirSync } from "fs"
 import { resolve } from "path"
@@ -31,15 +31,15 @@ export const filePreHandle = () => {
 export const fileAfterHandle = () => {
   const outPath = resolve(process.cwd(), getConfig('outPath'))
   const dest = resolve(config.rootDir, 'tmp')
-  const projectPrettier = resolve(process.cwd(), '.prettierrc.js')
+  const thisDir = process.cwd()
+  const projectPrettier = resolve(thisDir, '.prettierrc.js')
+  const cliDir = resolve(config.rootDir, 'tpl/')
   let prettierrc =''
   if (existsSync(projectPrettier)) {
     prettierrc = projectPrettier
   } else {
-    prettierrc = resolve(config.rootDir, '../.prettierrc.js')
+    prettierrc = resolve(cliDir, '.prettierrc.js')
   }
-  const thisDir = process.cwd()
-  const cliDir = resolve(config.rootDir, '../')
   info(`通过 ${prettierrc} 美化生成的代码`)
   info(`脚手架目录: ${cliDir}`, 'debug')
   info(`项目目录: ${thisDir}`, 'debug')

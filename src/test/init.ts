@@ -1,4 +1,4 @@
-import init from "@/models/init"
+import init from "@as-src/models/init"
 
 const initRun = () => {
   init()

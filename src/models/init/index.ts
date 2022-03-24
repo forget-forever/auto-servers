@@ -3,12 +3,12 @@
  * @Date: 2022-01-10 20:32:04
  * @LastEditTime: 2022-02-21 17:59:15
  */
-import config from "@/config";
+import config from "@as-src/config";
 import chalk from "chalk";
 import { copyFileSync } from "fs";
 import { resolve } from "path";
 
-import { info } from "@/utils";
+import { info } from "@as-src/utils";
 import inquirer from "inquirer";
 
 const init = async (name = '') => {

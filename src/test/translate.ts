@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-02-08 11:19:48
  */
 // import pinyin from "pinyin"
-import { translate } from "@/servers"
+import { translate } from "@as-src/servers"
 
 const init = async () => {
   // console.log(pinyin('aaa/aa').join())

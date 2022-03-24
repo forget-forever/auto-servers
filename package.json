@@ -64,6 +64,6 @@
     "typescript": "^4.5.4"
   },
   "_moduleAliases": {
-    "@": "lib"
+    "@as-src": "lib"
   }
 }
