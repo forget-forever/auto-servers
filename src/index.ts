@@ -9,7 +9,7 @@ import init from "./models/init";
 import { info } from "./utils";
 import { getParams, setParams } from "./utils/params";
 
-program.version(require("../package.json").version, '-v --version').usage('<command> <command> [name]');
+program.version(require("@root/package.json").version, '-v --version').usage('<command> <command> [name]');
 
 program.command('init [name]').description('init loading....').action((name) => {
   init(name)
