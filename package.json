@@ -1,9 +1,10 @@
 {
   "name": "auto-servers",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "前端根据yapi自动生成servers的命令行工具",
   "bin": {
-    "auto-servers": "lib/index.js"
+    "auto-servers": "lib/index.js",
+    "atss": "lib/index.js"
   },
   "types": "lib/index.d.ts",
   "main": "lib/index.js",

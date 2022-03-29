@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2022-02-08 14:55:47
- * @LastEditTime: 2022-03-24 16:44:10
+ * @LastEditTime: 2022-03-29 10:47:35
  */
 import config from "@as-src/config"
 import { copyDirectory, info } from "@as-src/utils"
@@ -38,7 +38,7 @@ export const fileAfterHandle = () => {
   if (existsSync(projectPrettier)) {
     prettierrc = projectPrettier
   } else {
-    prettierrc = resolve(cliDir, '.prettierrc.js')
+    prettierrc = resolve(cliDir, 'sample.prettierrc.js')
   }
   info(`通过 ${prettierrc} 美化生成的代码`)
   info(`脚手架目录: ${cliDir}`, 'debug')

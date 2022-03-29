@@ -21,8 +21,8 @@ create: create -> 获取apis -> 将api打平获取本次允许所要使用的api
 
 ```bash
 npm install auto-servers -g & yarn add auto-servers global
-auto-servers init # 项目初始化，配置文件默认名称 .asconfig.js
-auto-servers init xxx # 项目初始化，配置文件默认名称 xxx.asconfig.js
+atss init # 项目初始化，配置文件默认名称 .asconfig.js
+atss init xxx # 项目初始化，配置文件默认名称 xxx.asconfig.js
 ```
 
 ### 生成
@@ -32,15 +32,15 @@ auto-servers init xxx # 项目初始化，配置文件默认名称 xxx.asconfig.
 默认会以当前目录的.asconfig.js作为配置文件
 
 ```bash
-auto-servers create # 获取全部的接口类型
-auto-servers create -t xxxxx # 获取xxxx类型的接口，或者url为xxxxx，或者xxxx集合的接口脚手架会自动识别
+atss create # 获取全部的接口类型
+atss create -t xxxxx # 获取xxxx类型的接口，或者url为xxxxx，或者xxxx集合的接口脚手架会自动识别
 ```
 
 #### 指定配置文件
 
 ```bash
-auto-servers create -c xxxx # 以当前目录的xxxx文件作为配置文件创建接口
-auto-servers create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当前目录的xxxx文件作为配置文件创建接口
+atss create -c xxxx # 以当前目录的xxxx文件作为配置文件创建接口
+atss create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当前目录的xxxx文件作为配置文件创建接口
 ```
 
 ## 配置文件
