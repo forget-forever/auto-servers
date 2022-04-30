@@ -51,7 +51,7 @@ atss create -t xxxxx -c xxxx # 获取xxxx类型或url或集合，以当前目录
 | ----| ---- | ---- | ---- | ---- |
 | projectId | 项目id | string | - | true |
 | token | 项目token | string | - | true |
-| mockUrl | yapi的mock地址，写上域名就够了，例如：<http://yapi.xxxxxxx.com> | string | 'http://yapi.sfjswl.com' | false |
+| mockUrl | yapi的mock地址，写上域名就够了，例如：<http://yapi.xxxxxxx.com> | string | 'http://yapi.xxxx.com' | false |
 | importModel | 引入的modules | string[] | ["import request from '@/utils/request'"] | false |
 | collections | 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类 | string | {} | false |
 | outPath | 方法生成的目录 | string | 'src/servers' | false |

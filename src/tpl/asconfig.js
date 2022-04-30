@@ -1,7 +1,7 @@
 /*
  * @Author: zml
  * @Date: 2021-12-29 15:35:22
- * @LastEditTime: 2022-03-23 14:03:31
+ * @LastEditTime: 2022-04-30 15:47:23
  */
 
 /** @type {import("as-config").AsConfig} */
@@ -9,7 +9,7 @@ module.exports = {
   // 项目id
   projectId: "",
   // yapi的mock地址，写上域名就够了，例如：http://yapi.xxxxxxx.com
-  mockUrl: "http://yapi.sfjswl.com",
+  mockUrl: "http://yapi.xxxxx.com",
   // 项目token
   token: "",
   /** 引入的model */

@@ -20,10 +20,10 @@
     "eslint": "eslint --fix src --ext .ts --max-warnings=0",
     "uninstall": "npm uninstall auto-servers -g"
   },
-  "homepage": "http://gitlab.sfjswl.com/fe/auto-servers/-/blob/master/README.md",
+  "homepage": "https://github.com:forget-forever/auto-servers.git/fe/auto-servers/-/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "http://gitlab.sfjswl.com/fe/auto-servers.git"
+    "url": "https://github.com:forget-forever/auto-servers.git"
   },
   "author": "zml",
   "license": "MIT",

@@ -16,7 +16,7 @@ module.exports = {
 
   tsType: true,
 
-  // mockUrl: "http://yapi.sfjswl.com", 
+  // mockUrl: "http://yapi.xxxx.com", 
 
   // collections: {
   //   // test集合，含有3.2和utils的tag为一个集合

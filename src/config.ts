@@ -1,10 +1,10 @@
-import type asc from './tpl/asconfig'
+import { AsConfig } from 'as-config'
 
 export default {
   /** 有道翻译url */
   translateUrl: 'https://aidemo.youdao.com/trans',
   /** 用户配置文件的必填项 */
-  requiredConfig: ['token', 'projectId'] as (keyof typeof asc)[],
+  requiredConfig: ['token', 'projectId', 'mockUrl'] as (keyof AsConfig)[],
   /** 分类控制匹配时的相似度阀值 */
   similarThreshold: 0.9,
   /** 默认的配置文件名称 */

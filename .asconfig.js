@@ -1,14 +1,14 @@
 /*
  * @Author: zml
  * @Date: 2022-01-12 11:16:39
- * @LastEditTime: 2022-03-17 19:14:21
+ * @LastEditTime: 2022-04-30 15:44:41
  */
 /** @type {import('as-config').AsConfig} */
 module.exports = {
   // 项目id
   projectId: 132,
-  // yapi的mock地址，写上域名就够了，例如：http://yapi.sfjswl.com
-  mockUrl: "http://yapi.sfjswl.com",
+  // yapi的mock地址，写上域名就够了
+  mockUrl: "",
   // 项目token
   token: "afb8d3ceb74453d513f73b451b1f404dda763479e18349ffb1bb6e9373ce9695",
   // 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类

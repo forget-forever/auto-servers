@@ -20,7 +20,7 @@ module.exports = {
   //   test: ["3.2", "utils"]
   // },
 
-  // mockUrl: "http://yapi.sfjswl.com", 
+  // mockUrl: "http://yapi.xxxx.com", 
 
   // outPath: "src/servers",
 
