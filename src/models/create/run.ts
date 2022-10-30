@@ -12,18 +12,20 @@ import { createType } from "./typeHandle";
 
 const apiDetailHandle = (data: ApiDetail<'str'>) => {
   const res = { ...data } as unknown as ApiDetail<'obj'>
-  if (data.res_body && typeof data.res_body === 'string' && data.res_body_is_json_schema) {
-    res.res_body_obj = JSON.parse(data.res_body)
+  const { res_body, res_body_is_json_schema, req_body_other, req_body_is_json_schema } = data
+  if (res_body && typeof res_body === 'string' && res_body_is_json_schema) {
+    res.res_body_obj = JSON.parse(res_body)
   }
-  if (data.req_body_other && typeof data.req_body_other === 'string' && data.req_body_is_json_schema) {
-    res.req_body_obj = JSON.parse(data.req_body_other)
+  if (req_body_other && typeof req_body_other === 'string' && req_body_is_json_schema) {
+    res.req_body_obj = JSON.parse(req_body_other)
   }
   return res 
 }
 
 const run = async (api: OneListItem) => {
+  const {_id, title = ''} = api
   const res = await getYpiMsg<ApiDetail<'str'>>(config.interfaceDetailUrl, {
-    formData: { id: api._id }
+    formData: { id: _id }
   })
   const apiDetail = apiDetailHandle(res.data)
 
@@ -42,7 +44,7 @@ const run = async (api: OneListItem) => {
       apiDetail
     }),
     file, 
-    api.title
+    title
   )
 
   return 'success' as const

@@ -16,15 +16,15 @@ import { fileAfterHandle, filePreHandle } from "./fileHandle"
  * 开始生成任务队列
  * @param apis 任务的数组
  */
-const createTasks = async (apis: OneListItem[]) => {
+const createTasks = async (apis: OneListItem[] = []) => {
   filePreHandle()
   const progressLog = new ProgressLogs({
     title: 'ok！现在开始生成方法',
     record: true,
     loadingEffect: apis.length
   })
-  apis.forEach((item) => {
-    progressLog.add(`生成 ${item.title || ''} 方法:`, item.path, {color: 'green'})
+  apis.forEach(({title = '', path = ''}) => {
+    progressLog.add(`生成 ${title || ''} 方法:`, path, {color: 'green'})
   })
   progressLog.start()
   for(let i = 0; i < apis.length; i++) {

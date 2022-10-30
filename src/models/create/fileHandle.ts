@@ -94,7 +94,7 @@ export const fileAfterHandle = async () => {
   const cliDir = resolve(config.rootDir, 'tpl/')
   // 临时文件目录
   const dest = resolve(config.rootDir, 'tmp')
-  // 输出牡蛎
+  // 输出目录
   const outPath = resolve(thisDir, getConfig('outPath'))
 
   await prettierHandle(thisDir, cliDir, dest)

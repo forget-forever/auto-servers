@@ -35,6 +35,8 @@ import { getContent } from "../utils/typeFileHandle"
  * @returns 
  */
  export const createType = async (api: ApiDetail<'obj'>, dest: string, namespace: string) => {
+  const { req_body_is_json_schema, res_body_is_json_schema } = api || {}
+
   // 目标路径为空，说明不要创建类型
   if (!dest) {
     return {paramsTypeName: '', dataTypeName: '', resTypeName: ''}
@@ -43,7 +45,7 @@ import { getContent } from "../utils/typeFileHandle"
   const parseType = new ParseType(name, namespace)
   
   const resMsg = await parseType.format({
-    mod: api.res_body_is_json_schema ? 'schema': 'jsonc',
+    mod: res_body_is_json_schema ? 'schema': 'jsonc',
     schema: api.res_body_obj,
     startNode: getConfig('typeRootNode'),
     key: 'Res',
@@ -53,7 +55,7 @@ import { getContent } from "../utils/typeFileHandle"
   const dataMsg = await parseType.format({
     key: 'Data',
     schema: api.req_body_obj,
-    mod: api.req_body_is_json_schema ? 'schema' : 'jsonc',
+    mod: req_body_is_json_schema ? 'schema' : 'jsonc',
     str: api.req_body_other
   })
 

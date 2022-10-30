@@ -10,6 +10,6 @@ module.exports = () => {
     paramsType: 'P',
     responseType: 'R',
     dataType: '',
-    apiDetail: {method: 'GET', path: 'dadf/fdstgrt/tgrfeyhb'} as any
+    apiDetail: {method: 'GET', path: 'dadf/fdstgrt/tgrfeyhb'} as never
   })
 }
