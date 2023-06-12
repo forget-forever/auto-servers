@@ -10,7 +10,7 @@ module.exports = {
   // yapi的mock地址，写上域名就够了
   mockUrl: "",
   // 项目token
-  token: "afb8d3ceb74453d513f73b451b1f404dda763479e18349ffb1bb6e9373ce9695",
+  token: "afbxxxxx",
   // 接口集合，通过yapi上的tag和分类来区分集合,是数组的时候识别为tag，字符串的时候识别为分类
   collections: {
     test: ["3.2"]
