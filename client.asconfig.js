@@ -5,7 +5,7 @@
  */
 module.exports = {
   projectId: "52",
-  token: "b795f1bd91257f3a20fbca40da378b6ca1d441cbf84ddd71649c57a5d2bca4d0", /** 项目的token */
+  token: "b795fxxxxx", /** 项目的token */
   importModel: ["import { Request } from '@/lib/request/request';"], /** 引入的model */
   // importTypeModel: [], /** 类型文件中引入的model */
   /**
